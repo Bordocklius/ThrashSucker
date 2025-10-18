@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace ThrashSucker.Presenters
 {
-    public class SuckingCannon : MonoBehaviour
+    public class SuckingCannonPresenter : MonoBehaviour
     {
         public List<GameObject> AmmoList = new List<GameObject>();
         public int MaxAmmoCount;
@@ -20,6 +21,9 @@ namespace ThrashSucker.Presenters
         private float _suctionForce;
 
         [SerializeField]
+        private float _shootForce;
+
+        [SerializeField]
         private float _range;
         [SerializeField]
         private Camera _mainCamera;
@@ -32,10 +36,12 @@ namespace ThrashSucker.Presenters
         [SerializeField]
         public bool IsCannonSucking;
 
+        public TextMeshProUGUI Text;
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-        
+            UpdateCapacityText();
         }
 
         // Update is called once per frame
@@ -49,13 +55,13 @@ namespace ThrashSucker.Presenters
 
         private void ActivateCannonSuction()
         {
+            // Progressively increase suction power
             if (_suctionForce < _maxSuctionForce)
                 _suctionForce += Time.deltaTime;
             else if(_suctionForce > _maxSuctionForce)
                 _suctionForce = _maxSuctionForce;
-            Debug.Log(_suctionForce);
 
-                List<Collider> colliders = Physics.OverlapSphere(_barrelPoint.position, _suctionRange, _layerMask).ToList();
+            List<Collider> colliders = Physics.OverlapSphere(_barrelPoint.position, _suctionRange, _layerMask).ToList();
             foreach (Collider collider in colliders)
             {
                 GameObject obj = collider.gameObject;
@@ -77,24 +83,25 @@ namespace ThrashSucker.Presenters
 
         private void OnCannonShoot(InputValue inputValue)
         {
-            GetAimDirection();
-            //GameObject obj = AmmoList[AmmoList.Count - 1].gameObject;
-            //Rigidbody rb = obj.GetComponent<Rigidbody>();
-            //if (rb != null)
-            //{
-            //    Vector3 direction = GetAimDirection();
-            //    BallpitBall ball = obj.GetComponent<BallpitBall>();
-            //    if (ball != null)
-            //    {
-            //        ball.IsShot = true;
-            //        ball.Rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-            //    }
-            //    obj.transform.position = _barrelPoint.position;
-            //    obj.SetActive(true);
-            //    rb.AddForce(direction * _shootForce, ForceMode.Impulse);
-            //    AmmoList.Remove(obj);
-            //}
-            //Text.text = AmmoList.Count.ToString();
+            if (AmmoList.Count == 0)
+                return;
+
+            GameObject obj = AmmoList[AmmoList.Count - 1].gameObject;
+            if (obj.TryGetComponent<Rigidbody>(out var rb))
+            {
+                Vector3 direction = GetAimDirection();
+                SuckableObjectPresenter skObject = obj.GetComponent<SuckableObjectPresenter>();
+                if (skObject != null)
+                {
+                    skObject.Model.IsShot = true;
+                    skObject.Rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                }
+                obj.transform.position = _barrelPoint.position;
+                obj.SetActive(true);
+                rb.AddForce(direction * _shootForce, ForceMode.Impulse);
+                AmmoList.Remove(obj);
+            }
+            UpdateCapacityText();
 
         }
 
@@ -122,6 +129,11 @@ namespace ThrashSucker.Presenters
 
             return direction;
 
+        }
+
+        public void UpdateCapacityText()
+        {
+            Text.text = $"{AmmoList.Count} / {MaxAmmoCount}";
         }
 
         private void OnDrawGizmos()

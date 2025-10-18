@@ -10,7 +10,7 @@ namespace ThrashSucker.Presenters
         private LayerMask _layerMask;
 
         [SerializeField]
-        private SuckingCannon _canon;
+        private SuckingCannonPresenter _canon;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -21,6 +21,7 @@ namespace ThrashSucker.Presenters
                 {
                     _canon.AmmoList.Add(obj);
                     obj.SetActive(false);
+                    _canon.UpdateCapacityText();
                 }
             }
         }
