@@ -18,6 +18,8 @@ namespace ThrashSucker.Presenters
         
         [SerializeField]
         private float _maxSuctionForce;
+        [SerializeField]
+        private float _suctionIncreaseMultiplier;
         private float _suctionForce;
 
         [SerializeField]
@@ -57,7 +59,7 @@ namespace ThrashSucker.Presenters
         {
             // Progressively increase suction power
             if (_suctionForce < _maxSuctionForce)
-                _suctionForce += Time.deltaTime;
+                _suctionForce += Time.deltaTime * _suctionIncreaseMultiplier;
             else if(_suctionForce > _maxSuctionForce)
                 _suctionForce = _maxSuctionForce;
 
@@ -70,6 +72,12 @@ namespace ThrashSucker.Presenters
                 {
                     Vector3 direction = (_barrelPoint.position - rb.position).normalized;
                     rb.AddForce(direction * _suctionForce, ForceMode.Acceleration);
+
+                    //// Add fallof of force based on distance
+                    //float distance = Vector3.Distance(_barrelPoint.position, rb.position);
+                    //float fallof = 1 - (distance / _suctionRange);
+                    //float appliedForce = _suctionForce * fallof;
+                    //rb.AddForce(direction * appliedForce, ForceMode.Acceleration);
                 }
             }
         }
