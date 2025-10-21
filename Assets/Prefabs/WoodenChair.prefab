@@ -210,6 +210,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rb: {fileID: 9173437280109025299}
   TTL: 5
+  SubObjects: []
+  ObjectHealth: 0
+  HitableLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  _layermaskActivateTimer: 0
 --- !u!1 &8778213594141253000
 GameObject:
   m_ObjectHideFlags: 0

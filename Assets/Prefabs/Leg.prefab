@@ -153,3 +153,7 @@ MonoBehaviour:
   TTL: 5
   SubObjects: []
   ObjectHealth: 1
+  HitableLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  _layermaskActivateTimer: 5

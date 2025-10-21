@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Collections;
 
 namespace ThrashSucker.Presenters 
 { 
@@ -13,6 +14,11 @@ namespace ThrashSucker.Presenters
         public float TTL;
         public List<GameObject> SubObjects = new List<GameObject>();
         public int ObjectHealth;
+        public LayerMask HitableLayer;
+
+        private LayerMask _currentLayerMask;
+        [SerializeField]
+        private float _layermaskActivateTimer;
 
         protected override void Model_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -37,11 +43,18 @@ namespace ThrashSucker.Presenters
         {
             Model = new SuckableObject(ObjectHealth ,TTL);
             Rb = GetComponent<Rigidbody>();
+            //DelayLayerMask();
         }
 
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
+        }
+
+        private IEnumerator DelayLayerMask()
+        {
+            yield return new WaitForSeconds(_layermaskActivateTimer);
+            _currentLayerMask = HitableLayer;
         }
 
         private void OnHealthDepleted()
@@ -59,9 +72,21 @@ namespace ThrashSucker.Presenters
             Destroy(this.gameObject);
         }
 
+
+
         private void OnTTLExpired(object sender, EventArgs e)
         {
             Rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
         }
+
+        private void OnCollisionEnter(Collision collision)
+        {            
+            if (collision != null && ((1 << collision.gameObject.layer) & HitableLayer) != 0)
+            {
+                Model.ObjectHealth--;
+            }
+        }
+
+
     }
 }
