@@ -6,7 +6,6 @@ namespace ThrashSucker.Models
     public class SuckableObject: UnityModelBaseClass
     {
         public event EventHandler TTLExpired;
-        public event EventHandler HealthDepleted;
 
         private bool _isShot;
         public bool IsShot
@@ -33,7 +32,6 @@ namespace ThrashSucker.Models
 
                 _objectHealth = value;
                 OnPropertyChanged();
-                HealthDepleted?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -41,8 +39,9 @@ namespace ThrashSucker.Models
         private float _shotLifetime;
         private float _shotTimer;
 
-        public SuckableObject(float timeToLive)
+        public SuckableObject(int objHealth ,float timeToLive)
         {
+            ObjectHealth = objHealth;
             _shotLifetime = timeToLive;
         }
 

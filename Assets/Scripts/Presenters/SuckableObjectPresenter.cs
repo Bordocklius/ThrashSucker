@@ -2,6 +2,8 @@ using UnityEngine;
 using ThrashSucker.Models;
 using System.ComponentModel;
 using System;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 namespace ThrashSucker.Presenters 
 { 
@@ -9,10 +11,16 @@ namespace ThrashSucker.Presenters
     {
         public Rigidbody Rb;
         public float TTL;
+        public List<GameObject> SubObjects = new List<GameObject>();
+        public int ObjectHealth;
 
         protected override void Model_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals(nameof(SuckableObject.ObjectHealth))) return;
+            if (e.PropertyName.Equals(nameof(SuckableObject.ObjectHealth)))
+            {
+                if (Model.ObjectHealth == 0)
+                    OnHealthDepleted();
+            }            
         }
 
         protected override void ModelSetInitialisation(SuckableObject previousModel)
@@ -21,15 +29,13 @@ namespace ThrashSucker.Presenters
             if(previousModel != null)
             {
                 previousModel.TTLExpired -= OnTTLExpired;
-                previousModel.HealthDepleted -= OnHealthDepleted;
             }
             Model.TTLExpired += OnTTLExpired;
-            Model.HealthDepleted += OnHealthDepleted;
         }
 
         protected void Awake()
         {
-            Model = new SuckableObject(TTL);
+            Model = new SuckableObject(ObjectHealth ,TTL);
             Rb = GetComponent<Rigidbody>();
         }
 
@@ -38,8 +44,18 @@ namespace ThrashSucker.Presenters
             base.FixedUpdate();
         }
 
-        private void OnHealthDepleted(object sender, EventArgs e)
+        private void OnHealthDepleted()
         {
+            if(SubObjects.Count > 0)
+            {
+                foreach (GameObject obj in SubObjects)
+                {
+                    Instantiate(obj, transform.position, transform.rotation);
+                    Rigidbody rb = obj.GetComponent<Rigidbody>();
+                    Vector3 randomDirection = UnityEngine.Random.insideUnitSphere;
+                    rb.AddForce(randomDirection * 2, ForceMode.Impulse);
+                }
+            }            
             Destroy(this.gameObject);
         }
 

@@ -31,12 +31,18 @@ namespace ThrashSucker.Presenters
         private Camera _mainCamera;
         [SerializeField]
         private Transform _crosshairTransform;
+        [SerializeField]
+        private Transform _suctionArea;
+        [SerializeField]
+        private Collider _suctionAreaCollider;
 
         [SerializeField]
         private LayerMask _layerMask;
 
         [SerializeField]
         public bool IsCannonSucking;
+        [SerializeField]
+        private ParticleSystem _suckingParticles;
 
         public TextMeshProUGUI Text;
 
@@ -63,6 +69,10 @@ namespace ThrashSucker.Presenters
             else if(_suctionForce > _maxSuctionForce)
                 _suctionForce = _maxSuctionForce;
 
+            //List<Collider> colliders = 
+            //    Physics.OverlapBox(_suctionAreaCollider.transform.position, _suctionAreaCollider.transform.localScale,
+            //    _suctionAreaCollider.transform.rotation, _layerMask).ToList();
+
             List<Collider> colliders = Physics.OverlapSphere(_barrelPoint.position, _suctionRange, _layerMask).ToList();
             foreach (Collider collider in colliders)
             {
@@ -73,7 +83,7 @@ namespace ThrashSucker.Presenters
                     Vector3 direction = (_barrelPoint.position - rb.position).normalized;
                     rb.AddForce(direction * _suctionForce, ForceMode.Acceleration);
 
-                    //// Add fallof of force based on distance
+                    // Add fallof of force based on distance
                     //float distance = Vector3.Distance(_barrelPoint.position, rb.position);
                     //float fallof = 1 - (distance / _suctionRange);
                     //float appliedForce = _suctionForce * fallof;
@@ -85,8 +95,12 @@ namespace ThrashSucker.Presenters
         private void OnActivateSuck(InputValue inputValue)
         {
             IsCannonSucking = !IsCannonSucking;
-            if (!IsCannonSucking)
+            _suckingParticles.Play();
+            if (!IsCannonSucking) 
+            {
                 _suctionForce = 0f;
+                _suckingParticles.Stop();
+            }
         }
 
         private void OnCannonShoot(InputValue inputValue)
@@ -147,6 +161,8 @@ namespace ThrashSucker.Presenters
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireSphere(_barrelPoint.position, _suctionRange);
+            Gizmos.DrawWireCube(_suctionArea.position, _suctionArea.localScale);
+            Gizmos.DrawWireCube(_suctionAreaCollider.transform.position, _suctionAreaCollider.transform.localScale);
         }
     }
 
