@@ -17,6 +17,8 @@ namespace ThrashSucker.Presenters
         private Vector2 _cameraMovement;
         private float _pitch;
 
+
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {

@@ -12,6 +12,10 @@ namespace ThrashSucker.Presenters
         [SerializeField]
         private SuckingCannonPresenter _canon;
 
+        [SerializeField]
+        private AudioSource _audioSource;
+
+
         private void OnTriggerEnter(Collider other)
         {
             GameObject obj = other.gameObject;
@@ -22,6 +26,7 @@ namespace ThrashSucker.Presenters
                     _canon.AmmoList.Add(obj);
                     obj.SetActive(false);
                     _canon.UpdateCapacityText();
+                    _audioSource.Play();
                 }
             }
         }

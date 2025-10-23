@@ -11,6 +11,8 @@ namespace ThrashSucker.Presenters
         public List<GameObject> AmmoList = new List<GameObject>();
         public int MaxAmmoCount;
 
+        [Space(10)]
+        [Header("Suction parameters")]
         [SerializeField]
         private Transform _barrelPoint;
         [SerializeField]
@@ -19,9 +21,21 @@ namespace ThrashSucker.Presenters
         [SerializeField]
         private float _maxSuctionForce;
         [SerializeField]
-        private float _suctionIncreaseMultiplier;
+        private float _suctionIncreaseMultiplier = 1f;
+        [SerializeField]
+        private Transform _suctionAreaMax;
+        [SerializeField]
+        private Transform _suctionAreaCurrent;
+        [SerializeField]
+        private float _suctionAreaIncreaseMultiplier = 1f;
+        [SerializeField]
+        private ParticleSystem _suckingParticles;
+
         private float _suctionForce;
 
+
+        [Space(10)]
+        [Header("Shooting parameters")]
         [SerializeField]
         private float _shootForce;
 
@@ -32,17 +46,14 @@ namespace ThrashSucker.Presenters
         [SerializeField]
         private Transform _crosshairTransform;
         [SerializeField]
-        private Transform _suctionArea;
-        [SerializeField]
-        private Collider _suctionAreaCollider;
-
+        private ParticleSystem _shootingParticles;
         [SerializeField]
         private LayerMask _layerMask;
 
         [SerializeField]
-        public bool IsCannonSucking;
+        public bool IsCannonSucking;        
         [SerializeField]
-        private ParticleSystem _suckingParticles;
+        private Transform _gunTransform;
 
         public TextMeshProUGUI Text;
 
@@ -69,11 +80,22 @@ namespace ThrashSucker.Presenters
             else if(_suctionForce > _maxSuctionForce)
                 _suctionForce = _maxSuctionForce;
 
-            //List<Collider> colliders = 
-            //    Physics.OverlapBox(_suctionAreaCollider.transform.position, _suctionAreaCollider.transform.localScale,
-            //    _suctionAreaCollider.transform.rotation, _layerMask).ToList();
+            // Lerp suction area towards max position
+            if(_suctionAreaCurrent.position != _suctionAreaMax.position)
+            {
+                _suctionAreaCurrent.position = Vector3.Lerp(_suctionAreaCurrent.position, _suctionAreaMax.position, Time.deltaTime * _suctionAreaIncreaseMultiplier);
+                if (Vector3.Distance(_suctionAreaCurrent.position, _suctionAreaMax.position) <= 0.01f)
+                {
+                    _suctionAreaCurrent.position = _suctionAreaMax.position;
+                }
+            }
+            
 
-            List<Collider> colliders = Physics.OverlapSphere(_barrelPoint.position, _suctionRange, _layerMask).ToList();
+            //List<Collider> colliders = Physics.OverlapSphere(_barrelPoint.position, _suctionRange, _layerMask).ToList();
+
+            List<Collider> colliders = Physics.OverlapCapsule(_barrelPoint.position, _suctionAreaMax.position, _suctionRange, _layerMask).ToList();
+
+            // Add force towards barrelpoint for all colliders in the overlap area
             foreach (Collider collider in colliders)
             {
                 GameObject obj = collider.gameObject;
@@ -98,8 +120,10 @@ namespace ThrashSucker.Presenters
             _suckingParticles.Play();
             if (!IsCannonSucking) 
             {
+                _suctionAreaCurrent.position = _barrelPoint.position;
                 _suctionForce = 0f;
                 _suckingParticles.Stop();
+                _suckingParticles.Clear();
             }
         }
 
@@ -118,12 +142,22 @@ namespace ThrashSucker.Presenters
                     skObject.Model.IsShot = true;
                     skObject.Rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
                 }
-                obj.transform.position = _barrelPoint.position;
+
+                // Get object slightly out of the way of barrel
+                obj.transform.position = _barrelPoint.position + _barrelPoint.forward * 0.1f;
+
+                // Allign object with shoot direction
+                obj.transform.rotation = Quaternion.LookRotation(direction);
                 obj.SetActive(true);
+
+                // Ensure obj doesnt have leftover velocity from somewhere, set collisiondetection and shoot
+                rb.linearVelocity = Vector3.zero;
+                rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
                 rb.AddForce(direction * _shootForce, ForceMode.Impulse);
                 AmmoList.Remove(obj);
             }
             UpdateCapacityText();
+            _shootingParticles.Play();
 
         }
 
@@ -143,6 +177,8 @@ namespace ThrashSucker.Presenters
 
             Debug.DrawLine(ray.origin, hit.point, Color.blue, 2f, true);
 
+            _barrelPoint.rotation = Quaternion.LookRotation(hit.point);
+
             // Get direction from shootpoint to hitpoint
             Vector3 direction = (hit.point - _barrelPoint.position).normalized;
             //float randomStrength = Random.Range(0, _offsetStrengthMax);
@@ -161,8 +197,7 @@ namespace ThrashSucker.Presenters
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireSphere(_barrelPoint.position, _suctionRange);
-            Gizmos.DrawWireCube(_suctionArea.position, _suctionArea.localScale);
-            Gizmos.DrawWireCube(_suctionAreaCollider.transform.position, _suctionAreaCollider.transform.localScale);
+            Gizmos.DrawLine(_barrelPoint.position, _suctionAreaCurrent.position);
         }
     }
 

@@ -20,6 +20,13 @@ namespace ThrashSucker.Presenters
         [SerializeField]
         private float _layermaskActivateTimer;
 
+        [SerializeField]
+        private float _objectSpread = 0.2f;
+        private Vector3 _contactNormal;
+
+        [SerializeField]
+        private ParticleSystem _deathParticles;
+
         protected override void Model_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals(nameof(SuckableObject.ObjectHealth)))
@@ -39,11 +46,16 @@ namespace ThrashSucker.Presenters
             Model.TTLExpired += OnTTLExpired;
         }
 
-        protected void Awake()
+        private void Awake()
         {
             Model = new SuckableObject(ObjectHealth ,TTL);
-            Rb = GetComponent<Rigidbody>();
-            //DelayLayerMask();
+            Rb = GetComponent<Rigidbody>();            
+        }
+
+        private void OnEnable()
+        {
+            _currentLayerMask = LayerMask.GetMask("Default");
+            DelayLayerMask();
         }
 
         protected override void FixedUpdate()
@@ -65,10 +77,20 @@ namespace ThrashSucker.Presenters
                 {
                     Instantiate(obj, transform.position, transform.rotation);
                     Rigidbody rb = obj.GetComponent<Rigidbody>();
+                    
                     Vector3 randomDirection = UnityEngine.Random.insideUnitSphere;
-                    rb.AddForce(randomDirection * 2, ForceMode.Impulse);
+                    Vector3 finalDirection = Vector3.Slerp(_contactNormal, randomDirection, _objectSpread);
+
+                    rb.AddForce(randomDirection * UnityEngine.Random.Range(0, 5), ForceMode.Impulse);
                 }
-            }            
+            }
+            // Detatch particle system to ensure playback of particles
+            if(_deathParticles != null)
+            {
+                _deathParticles.transform.parent = null;
+                _deathParticles.Play();
+                Destroy(_deathParticles.gameObject, _deathParticles.main.duration);
+            }
             Destroy(this.gameObject);
         }
 
@@ -84,6 +106,11 @@ namespace ThrashSucker.Presenters
             if (collision != null && ((1 << collision.gameObject.layer) & HitableLayer) != 0)
             {
                 Model.ObjectHealth--;
+                if(Model.ObjectHealth <= 0)
+                {
+                    // Save surface normal of contact point to throw new spawned objects away from contact point
+                    _contactNormal = collision.contacts[0].normal;
+                }
             }
         }
 
