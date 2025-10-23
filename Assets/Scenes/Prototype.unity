@@ -2254,14 +2254,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 317246099981433215, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 7.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 317246099981433215, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.91
-      objectReference: {fileID: 0}
     - target: {fileID: 2823872501055784961, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2307,29 +2299,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6174315066799661069, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: _maxShootForce
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174315066799661069, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: _maxSuctionForce
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174315066799661069, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
       propertyPath: _crosshairTransform
       value: 
       objectReference: {fileID: 730991239}
-    - target: {fileID: 6174315066799661069, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: _suctionIncreaseMultiplier
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174315066799661069, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: _shootForceIncreaseMultiplier
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 8092937827282878897, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: m_Radius
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
