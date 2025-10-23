@@ -409,13 +409,14 @@ MonoBehaviour:
   MaxAmmoCount: 5
   _barrelPoint: {fileID: 6175142742969637459}
   _suctionRange: 2.5
-  _maxSuctionForce: 8
-  _suctionIncreaseMultiplier: 3
+  _maxSuctionForce: 10
+  _suctionIncreaseMultiplier: 2.5
   _suctionAreaMax: {fileID: 7142718392690123363}
   _suctionAreaCurrent: {fileID: 9129088607664628421}
   _suctionAreaIncreaseMultiplier: 1
   _suckingParticles: {fileID: 3613917021258549103}
-  _shootForce: 50
+  _maxShootForce: 30
+  _shootForceIncreaseMultiplier: 25
   _range: 200
   _mainCamera: {fileID: 227786941751511151}
   _crosshairTransform: {fileID: 0}
@@ -423,6 +424,7 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 64
+  _collectionPoint: {fileID: 0}
   IsCannonSucking: 0
   _gunTransform: {fileID: 7258545214832006359}
   Text: {fileID: 4392381334619138082}
@@ -724,6 +726,14 @@ PrefabInstance:
       propertyPath: _audioSource
       value: 
       objectReference: {fileID: 9076591648011229581}
+    - target: {fileID: 3307938895530648778, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3307938895530648778, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.91
+      objectReference: {fileID: 0}
     - target: {fileID: 5079890528071586776, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
       propertyPath: m_Name
       value: Gun
@@ -767,6 +777,10 @@ PrefabInstance:
     - target: {fileID: 5563270630849399138, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467408006577167364, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
+      propertyPath: m_Radius
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

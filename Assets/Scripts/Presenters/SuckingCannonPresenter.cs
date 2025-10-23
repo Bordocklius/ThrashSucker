@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -8,6 +10,8 @@ namespace ThrashSucker.Presenters
 {
     public class SuckingCannonPresenter : MonoBehaviour
     {
+        public event EventHandler CannonShot;
+
         public List<GameObject> AmmoList = new List<GameObject>();
         public int MaxAmmoCount;
 
@@ -52,6 +56,8 @@ namespace ThrashSucker.Presenters
         private ParticleSystem _shootingParticles;
         [SerializeField]
         private LayerMask _layerMask;
+        [SerializeField]
+        private GameObject _collectionPoint;
 
         [SerializeField]
         public bool IsCannonSucking;        
@@ -209,6 +215,7 @@ namespace ThrashSucker.Presenters
 
         private void ShootCannon()
         {
+            CannonShot?.Invoke(this, EventArgs.Empty);
             GameObject obj = AmmoList[AmmoList.Count - 1].gameObject;
             if (obj.TryGetComponent<Rigidbody>(out var rb))
             {
@@ -237,6 +244,7 @@ namespace ThrashSucker.Presenters
             UpdateCapacityText();
             _shootForce = 0f;
             _isCannonShooting = false;
+            CannonShot?.Invoke(this, EventArgs.Empty);
         }
 
         public void UpdateCapacityText()

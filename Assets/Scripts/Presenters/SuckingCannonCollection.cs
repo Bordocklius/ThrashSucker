@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,23 @@ namespace ThrashSucker.Presenters
         [SerializeField]
         private AudioSource _audioSource;
 
+        private void Awake()
+        {
+            _canon.CannonShot += ToggleActive;
+        }
+
+        private void ToggleActive(object sender, EventArgs e)
+        {
+            if(this.gameObject.activeSelf)
+            {
+                this.gameObject.SetActive(false);
+            }
+            else
+            {
+                this.gameObject.SetActive(true);
+            }
+            Debug.Log(this.gameObject.activeSelf);
+        }
 
         private void OnTriggerEnter(Collider other)
         {
