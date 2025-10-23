@@ -1029,7 +1029,7 @@
                     "id": "9b5e004c-4a05-4a86-8a76-2c974ee21c6d",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "initialStateCheck": false
                 }
             ],

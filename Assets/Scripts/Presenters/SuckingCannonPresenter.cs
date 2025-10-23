@@ -37,6 +37,9 @@ namespace ThrashSucker.Presenters
         [Space(10)]
         [Header("Shooting parameters")]
         [SerializeField]
+        private float _maxShootForce;
+        [SerializeField]
+        private float _shootForceIncreaseMultiplier;
         private float _shootForce;
 
         [SerializeField]
@@ -54,6 +57,8 @@ namespace ThrashSucker.Presenters
         public bool IsCannonSucking;        
         [SerializeField]
         private Transform _gunTransform;
+        private bool _isCannonShooting;
+        private bool _isShotBuildingUp;
 
         public TextMeshProUGUI Text;
 
@@ -69,6 +74,16 @@ namespace ThrashSucker.Presenters
             if (IsCannonSucking)
             {
                 ActivateCannonSuction();
+            }
+
+            if(_isShotBuildingUp)
+            {
+                BuildUpShootForce();
+            }
+
+            if( _isCannonShooting)
+            {
+                ShootCannon();
             }
         }
 
@@ -103,7 +118,7 @@ namespace ThrashSucker.Presenters
                 if (rb != null)
                 {
                     Vector3 direction = (_barrelPoint.position - rb.position).normalized;
-                    rb.AddForce(direction * _suctionForce, ForceMode.Acceleration);
+                    rb.AddForce(direction * _suctionForce, ForceMode.Force);
 
                     // Add fallof of force based on distance
                     //float distance = Vector3.Distance(_barrelPoint.position, rb.position);
@@ -127,37 +142,40 @@ namespace ThrashSucker.Presenters
             }
         }
 
+        private void BuildUpShootForce()
+        {
+            Debug.Log(_shootForce);
+            if (_shootForce == _maxShootForce)
+                return;
+
+            if(_shootForce <= _maxShootForce)
+            {
+                _shootForce += Time.deltaTime * _shootForceIncreaseMultiplier;
+            }
+            else if(_shootForce >= _maxShootForce)
+            {
+                _shootForce = _maxShootForce;
+            }
+            
+        }
+
         private void OnCannonShoot(InputValue inputValue)
         {
             if (AmmoList.Count == 0)
                 return;
 
-            GameObject obj = AmmoList[AmmoList.Count - 1].gameObject;
-            if (obj.TryGetComponent<Rigidbody>(out var rb))
+            if (!_isShotBuildingUp && !_isCannonShooting)
             {
-                Vector3 direction = GetAimDirection();
-                SuckableObjectPresenter skObject = obj.GetComponent<SuckableObjectPresenter>();
-                if (skObject != null)
-                {
-                    skObject.Model.IsShot = true;
-                    skObject.Rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-                }
-
-                // Get object slightly out of the way of barrel
-                obj.transform.position = _barrelPoint.position + _barrelPoint.forward * 0.1f;
-
-                // Allign object with shoot direction
-                obj.transform.rotation = Quaternion.LookRotation(direction);
-                obj.SetActive(true);
-
-                // Ensure obj doesnt have leftover velocity from somewhere, set collisiondetection and shoot
-                rb.linearVelocity = Vector3.zero;
-                rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-                rb.AddForce(direction * _shootForce, ForceMode.Impulse);
-                AmmoList.Remove(obj);
-            }
-            UpdateCapacityText();
-            _shootingParticles.Play();
+                _isShotBuildingUp = true;
+                _shootingParticles.Play();
+            }      
+            else if(_isShotBuildingUp && !_isCannonShooting)
+            {
+                _isShotBuildingUp = false;
+                _isCannonShooting = true;
+                _shootingParticles.Stop();
+                _shootingParticles.Clear();
+            }            
 
         }
 
@@ -187,6 +205,38 @@ namespace ThrashSucker.Presenters
 
             return direction;
 
+        }
+
+        private void ShootCannon()
+        {
+            GameObject obj = AmmoList[AmmoList.Count - 1].gameObject;
+            if (obj.TryGetComponent<Rigidbody>(out var rb))
+            {
+                Vector3 direction = GetAimDirection();
+                SuckableObjectPresenter skObject = obj.GetComponent<SuckableObjectPresenter>();
+                if (skObject != null)
+                {
+                    skObject.Model.IsShot = true;
+                    skObject.Rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                }
+
+                // Get object slightly out of the way of barrel
+                obj.transform.position = _barrelPoint.position + _barrelPoint.forward * 0.1f;
+
+                // Allign object with shoot direction
+                obj.transform.rotation = Quaternion.LookRotation(direction);
+                obj.SetActive(true);
+
+                // Ensure obj doesnt have leftover velocity from somewhere, set collisiondetection and shoot
+                rb.linearVelocity = Vector3.zero;
+                rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+                rb.AddForce(direction * _shootForce, ForceMode.Impulse);
+                AmmoList.Remove(obj);
+            }
+
+            UpdateCapacityText();
+            _shootForce = 0f;
+            _isCannonShooting = false;
         }
 
         public void UpdateCapacityText()
