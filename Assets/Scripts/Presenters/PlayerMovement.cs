@@ -12,6 +12,7 @@ namespace ThrashSucker.Presenters
         [SerializeField]
         private float _movementSpeed;
 
+        private Vector3 _movementVelocity;
         private Vector2 _movementInput;
 
         private void Awake()
@@ -43,11 +44,16 @@ namespace ThrashSucker.Presenters
             Vector3 cameraForward = new Vector3(_mainCamera.transform.forward.x, 0, _mainCamera.transform.forward.z).normalized;
             Vector3 cameraRight = new Vector3(_mainCamera.transform.right.x, 0, _mainCamera.transform.right.z).normalized;
 
-            Vector3 movement = (cameraRight * _movementInput.x + cameraForward * _movementInput.y).normalized;
+            _movementVelocity = (cameraRight * _movementInput.x + cameraForward * _movementInput.y).normalized;
             float movementspeed = _movementSpeed;
 
-            movement *= _movementSpeed * Time.deltaTime;
-            _characterController.Move(movement);
+            if(!_characterController.isGrounded)
+            {
+                _movementVelocity += Physics.gravity * Time.deltaTime;
+            }
+
+            _movementVelocity *= _movementSpeed * Time.deltaTime;
+            _characterController.Move(_movementVelocity);
         }
 
         private void OnMove(InputValue value)
