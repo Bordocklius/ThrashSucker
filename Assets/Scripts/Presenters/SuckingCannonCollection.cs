@@ -36,12 +36,25 @@ namespace ThrashSucker.Presenters
 
         private void OnTriggerEnter(Collider other)
         {
+            HandleSuckingLogic(other);
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            HandleSuckingLogic(other);   
+        }
+
+        private void HandleSuckingLogic(Collider other)
+        {
             GameObject obj = other.gameObject;
             if (obj != null && _layerMask == (_layerMask | (1 << obj.layer)) && _canon.IsCannonSucking)
             {
                 if (_canon.AmmoList.Count < _canon.MaxAmmoCount)
                 {
-                    _canon.AmmoList.Add(obj);
+                    if (_canon.AmmoList.Contains(obj))
+                        return;
+                    _canon.UpdateAmmoList(true, obj);
+                    //_canon.AmmoList.Add(obj);
                     obj.SetActive(false);
                     _canon.UpdateCapacityText();
                     _audioSource.Play();

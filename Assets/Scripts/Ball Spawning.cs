@@ -35,11 +35,11 @@ public class BallSpawning : MonoBehaviour
 
             // Instantiate the ball and parent it to this GameObject
             GameObject newBall = Instantiate(BallPrefab, randomPos, Quaternion.identity, this.transform);
-            newBall.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            newBall.transform.localScale = new Vector3(1f, 1f, 1f);
 
             // Assign random color/material
             Material randomMaterial = BallColors[Random.Range(0, BallColors.Count)];
-            Renderer renderer = newBall.GetComponent<Renderer>();
+            Renderer renderer = newBall.transform.GetChild(0).GetComponent<Renderer>();
             if (renderer != null)
             {
                 renderer.material = randomMaterial;

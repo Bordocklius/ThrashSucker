@@ -11,9 +11,11 @@ namespace ThrashSucker.Presenters
     public class SuckingCannonPresenter : MonoBehaviour
     {
         public event EventHandler CannonShot;
+        public event EventHandler<AmmoChangedEventArgs> AmmoChanged;
 
         public List<GameObject> AmmoList = new List<GameObject>();
         public int MaxAmmoCount;
+        private GameObject _previousAmmoObject;
 
         [Space(10)]
         [Header("Suction parameters")]
@@ -34,9 +36,10 @@ namespace ThrashSucker.Presenters
         private float _suctionAreaIncreaseMultiplier = 1f;
         [SerializeField]
         private ParticleSystem _suckingParticles;
+        [SerializeField]
+        private float _shakeIntensity;
 
         private float _suctionForce;
-
 
         [Space(10)]
         [Header("Shooting parameters")]
@@ -65,13 +68,19 @@ namespace ThrashSucker.Presenters
         private Transform _gunTransform;
         private bool _isCannonShooting;
         private bool _isShotBuildingUp;
+        private Quaternion _originalGunRotation;
 
-        public TextMeshProUGUI Text;
+        [Space(10)]
+        [Header("UI elements")]
+        public TextMeshProUGUI AmmoCapacityText;
+        public TextMeshProUGUI ShootForceText;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            UpdateShootForceText();
             UpdateCapacityText();
+            _originalGunRotation = _gunTransform.localRotation;
         }
 
         // Update is called once per frame
@@ -81,17 +90,34 @@ namespace ThrashSucker.Presenters
             {
                 ActivateCannonSuction();
             }
-
-            if(_isShotBuildingUp)
+            if(!IsCannonSucking && _gunTransform.localRotation != _originalGunRotation)
             {
-                BuildUpShootForce();
+                _gunTransform.localRotation = _originalGunRotation;
             }
 
-            if( _isCannonShooting)
+            if (AmmoList.Count > 0)
             {
-                ShootCannon();
+                if (_isShotBuildingUp)
+                {
+                    BuildUpShootForce();
+                }
+                if (!_isShotBuildingUp && _gunTransform.localRotation != _originalGunRotation)
+                {
+                    _gunTransform.localRotation = _originalGunRotation;
+                }
+                if (_isCannonShooting)
+                {
+                    ShootCannon();
+                }
+                
             }
-        }
+
+            if(_suctionForce > 0.01f || _shootForce >= 0.1f)
+            {
+                ApplyGunShake();
+            }
+
+        }        
 
         private void ActivateCannonSuction()
         {
@@ -109,12 +135,18 @@ namespace ThrashSucker.Presenters
                 {
                     _suctionAreaCurrent.position = _suctionAreaMax.position;
                 }
-            }
-            
+            }           
+
 
             //List<Collider> colliders = Physics.OverlapSphere(_barrelPoint.position, _suctionRange, _layerMask).ToList();
 
             List<Collider> colliders = Physics.OverlapCapsule(_barrelPoint.position, _suctionAreaMax.position, _suctionRange, _layerMask).ToList();
+            Debug.Log(_suctionForce);
+
+
+            Vector3 shakeOffset = UnityEngine.Random.insideUnitSphere * _shakeIntensity;
+
+            ApplyGunShake();
 
             // Add force towards barrelpoint for all colliders in the overlap area
             foreach (Collider collider in colliders)
@@ -125,12 +157,23 @@ namespace ThrashSucker.Presenters
                 {
                     Vector3 direction = (_barrelPoint.position - rb.position).normalized;
                     rb.AddForce(direction * _suctionForce, ForceMode.Force);
+                    Transform modeltransform = obj.transform.GetChild(0);
+
+                    if (modeltransform != null)
+                    {
+                        modeltransform.localRotation = Quaternion.Euler(
+                            UnityEngine.Random.Range(0, 1f),
+                            UnityEngine.Random.Range(0, 1f),
+                            UnityEngine.Random.Range(0, 1f)
+                        );
+                    }
 
                     // Add fallof of force based on distance
-                    //float distance = Vector3.Distance(_barrelPoint.position, rb.position);
-                    //float fallof = 1 - (distance / _suctionRange);
-                    //float appliedForce = _suctionForce * fallof;
-                    //rb.AddForce(direction * appliedForce, ForceMode.Acceleration);
+                    //float distance = Vector3.Distance(rb.position, _barrelPoint.position);
+                    //float falloff = Mathf.Clamp01(1f - (distance / _suctionRange));
+                    //float appliedForce = _suctionForce * falloff;
+                    //rb.AddForce(direction * appliedForce, ForceMode.Force);
+
                 }
             }
         }
@@ -162,7 +205,19 @@ namespace ThrashSucker.Presenters
             {
                 _shootForce = _maxShootForce;
             }
-            
+
+            ApplyGunShake();
+            UpdateShootForceText();
+        }
+
+        private void ApplyGunShake()
+        {
+            Quaternion shake = Quaternion.Euler(
+                    UnityEngine.Random.Range(-1f, 1f),
+                    UnityEngine.Random.Range(-1f, 1f),
+                    UnityEngine.Random.Range(-1f, 1f)
+                );
+            _gunTransform.localRotation = _originalGunRotation * shake;
         }
 
         private void OnCannonShoot(InputValue inputValue)
@@ -238,18 +293,53 @@ namespace ThrashSucker.Presenters
                 rb.linearVelocity = Vector3.zero;
                 rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
                 rb.AddForce(direction * _shootForce, ForceMode.Impulse);
-                AmmoList.Remove(obj);
+                UpdateAmmoList(false, obj);
+                //AmmoList.Remove(obj);
             }
 
             UpdateCapacityText();
+            UpdateShootForceText();
             _shootForce = 0f;
             _isCannonShooting = false;
             CannonShot?.Invoke(this, EventArgs.Empty);
         }
 
+        public void UpdateAmmoList(bool add, GameObject ammoObject)
+        {
+            if(add)
+            {
+                AmmoList.Add(ammoObject);
+            }
+            else
+            {
+                AmmoList.Remove(ammoObject);
+            }
+            HandleCurrentAmmoObject();
+        }
+
+        private void HandleCurrentAmmoObject()
+        {
+            if (AmmoList.Count > 0)
+            {
+                GameObject currentobj = AmmoList.Last();
+                if (_previousAmmoObject == null || currentobj != _previousAmmoObject)
+                {
+                    _previousAmmoObject = currentobj;
+                    AmmoChanged?.Invoke(this, new AmmoChangedEventArgs(currentobj));
+                }
+            }
+            else
+                AmmoChanged?.Invoke(this, new AmmoChangedEventArgs(null));
+        }
+
         public void UpdateCapacityText()
         {
-            Text.text = $"{AmmoList.Count} / {MaxAmmoCount}";
+            AmmoCapacityText.text = $"{AmmoList.Count} / {MaxAmmoCount}";
+        }
+
+        private void UpdateShootForceText()
+        {
+            ShootForceText.text = $"Shootforce: {_shootForce}/{_maxShootForce}";
         }
 
         private void OnDrawGizmos()
@@ -258,5 +348,17 @@ namespace ThrashSucker.Presenters
             Gizmos.DrawLine(_barrelPoint.position, _suctionAreaCurrent.position);
         }
     }
+
+
+    public class AmmoChangedEventArgs : EventArgs
+    {
+        public GameObject AmmoObject { get; private set; }
+
+        public AmmoChangedEventArgs(GameObject ammoObject)
+        {
+            AmmoObject = ammoObject;
+        }
+    }
+
 
 }
