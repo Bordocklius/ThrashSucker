@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 namespace ThrashSucker.Models
@@ -47,6 +48,9 @@ namespace ThrashSucker.Models
 
         public override void FixedUpdate(float fixedDeltaTime)
         {
+            if(_shotLifetime == 0)
+                return;
+
             if(IsShot)
             {
                 _shotTimer += fixedDeltaTime;

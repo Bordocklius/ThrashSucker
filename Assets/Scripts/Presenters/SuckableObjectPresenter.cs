@@ -103,13 +103,20 @@ namespace ThrashSucker.Presenters
 
         private void OnCollisionEnter(Collision collision)
         {            
-            if (collision != null && ((1 << collision.gameObject.layer) & HitableLayer) != 0)
+            if (collision != null && ((1 << collision.gameObject.layer) & HitableLayer) != 0 && Model.IsShot)
             {
                 Model.ObjectHealth--;
                 if(Model.ObjectHealth <= 0)
                 {
                     // Save surface normal of contact point to throw new spawned objects away from contact point
                     _contactNormal = collision.contacts[0].normal;
+                }
+                
+                if(collision.collider.TryGetComponent<EnemyBasePresenter>(out EnemyBasePresenter enemy)) {
+                    if(enemy != null)
+                    {
+                        enemy.DamageEnemy();
+                    }
                 }
             }
         }
