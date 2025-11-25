@@ -15,12 +15,33 @@ namespace ThrashSucker.Presenters
         private Vector3 _movementVelocity;
         private Vector2 _movementInput;
 
+        public LayerMask HitableLayer;
+        public float StartingHP;
+
+        private float _health;
+        public float Health
+        {
+            get { return _health; }
+            set
+            {
+                if (_health == value)
+                    return;
+                
+                _health = value;
+                Debug.Log(_health);
+
+                if (_health >= 0)
+                    Debug.Log("ded");
+            }
+        }
+
         private void Awake()
         {
             if(_mainCamera == null)
                 _mainCamera = Camera.main;
             if( _characterController == null)
                 _characterController = GetComponent<CharacterController>();
+            Health = StartingHP;
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -60,6 +81,20 @@ namespace ThrashSucker.Presenters
         {
             _movementInput = value.Get<Vector2>();
         }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            // Colide with hittable object
+            if (collision != null && ((1 << collision.gameObject.layer) & HitableLayer) != 0)
+            {
+                if(collision.gameObject.TryGetComponent<EnemyBasePresenter>(out EnemyBasePresenter enemy))
+                {
+                    Health-= enemy.Damage;
+                }
+            }
+        }
+
+
     }
 
 }

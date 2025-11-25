@@ -21,11 +21,14 @@ namespace ThrashSucker.Models.Enemies
 		public List<MaterialType> EnemyWeaknesses;
         public List<MaterialType> EnemyResistances;
 
-        public Enemybase(List<MaterialType> weaknesses, List<MaterialType> resistances, float startingHP)
+		public float Damage = 2;
+
+        public Enemybase(List<MaterialType> weaknesses, List<MaterialType> resistances, float startingHP, float damage)
         {
 			EnemyWeaknesses = weaknesses;
 			EnemyResistances = resistances;
 			Health = startingHP;
+			Damage = damage;
         }
 
 		public virtual void OnEnemyShot(SuckableObject suckableObject)

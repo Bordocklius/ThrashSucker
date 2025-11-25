@@ -17,6 +17,7 @@ public class EnemyBasePresenter : PresenterBaseClass<Enemybase>
     private float _movementSpeed;
 
     public float StartingHP;
+    public float Damage;
 
     public List<MaterialType> EnemyWeaknesses;
     public List<MaterialType> EnemyResistances;
@@ -42,7 +43,7 @@ public class EnemyBasePresenter : PresenterBaseClass<Enemybase>
 
     private void Awake()
     {
-        Model = new Enemybase(EnemyWeaknesses, EnemyResistances, StartingHP);
+        Model = new Enemybase(EnemyWeaknesses, EnemyResistances, StartingHP, Damage);
         if (_playerTransform == null)
         {
             _playerTransform = GameObject.Find("Player").transform;
