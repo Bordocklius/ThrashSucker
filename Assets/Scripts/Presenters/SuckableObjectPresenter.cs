@@ -15,6 +15,8 @@ namespace ThrashSucker.Presenters
         public List<GameObject> SubObjects = new List<GameObject>();
         public int ObjectHealth;
         public LayerMask HitableLayer;
+        public MaterialType MaterialType;
+        public int Damage;
 
         private LayerMask _currentLayerMask;
         [SerializeField]
@@ -48,7 +50,7 @@ namespace ThrashSucker.Presenters
 
         private void Awake()
         {
-            Model = new SuckableObject(ObjectHealth ,TTL);
+            Model = new SuckableObject(ObjectHealth ,TTL, Damage);
             Rb = GetComponent<Rigidbody>();            
         }
 
@@ -115,7 +117,7 @@ namespace ThrashSucker.Presenters
                 if(collision.collider.TryGetComponent<EnemyBasePresenter>(out EnemyBasePresenter enemy)) {
                     if(enemy != null)
                     {
-                        enemy.DamageEnemy();
+                        enemy.DamageEnemy(Model);
                     }
                 }
             }

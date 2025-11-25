@@ -36,14 +36,19 @@ namespace ThrashSucker.Models
             }
         }
 
+        public int Damage;
+
+        public MaterialType MaterialType { get; set; }
+
         [SerializeField]
         private float _shotLifetime;
         private float _shotTimer;
 
-        public SuckableObject(int objHealth ,float timeToLive)
+        public SuckableObject(int objHealth ,float timeToLive, int damage)
         {
             ObjectHealth = objHealth;
             _shotLifetime = timeToLive;
+            Damage = damage;
         }
 
         public override void FixedUpdate(float fixedDeltaTime)
@@ -63,6 +68,13 @@ namespace ThrashSucker.Models
             }
         }
 
+    }
+
+    public enum MaterialType
+    {
+        None,
+        Wood,
+        Metal
     }
 
 }

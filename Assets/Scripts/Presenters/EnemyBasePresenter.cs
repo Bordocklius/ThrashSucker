@@ -1,6 +1,11 @@
+using System.Collections.Generic;
+using System.ComponentModel;
+using ThrashSucker.Models;
+using ThrashSucker.Models.Enemies;
+using ThrashSucker.Presenters;
 using UnityEngine;
 
-public class EnemyBasePresenter : MonoBehaviour
+public class EnemyBasePresenter : PresenterBaseClass<Enemybase>
 {
     [SerializeField]
     private Transform _transform;
@@ -11,26 +16,33 @@ public class EnemyBasePresenter : MonoBehaviour
     [SerializeField]
     private float _movementSpeed;
 
-    private int _enemyHealth;
-    public int EnemyHealth
+    public float StartingHP;
+
+    public List<MaterialType> EnemyWeaknesses;
+    public List<MaterialType> EnemyResistances;
+
+    protected override void Model_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
     {
-        get 
+        if (e.PropertyName.Equals(nameof(Enemybase.Health)))
         {
-            return _enemyHealth;
+            if (Model.Health == 0)
+                OnEnemyDeath();
         }
-        set
-        {
-            if (_enemyHealth <= 0)
-            {
-                Destroy(this.gameObject);
-                return;
-            }
-            _enemyHealth = value;
-        }
+    }
+
+    protected override void ModelSetInitialisation(Enemybase previousModel)
+    {
+        //base.ModelSetInitialisation(previousModel);
+        //if (previousModel != null)
+        //{
+        //    previousModel.TTLExpired -= OnTTLExpired;
+        //}
+        //Model.TTLExpired += OnTTLExpired;
     }
 
     private void Awake()
     {
+        Model = new Enemybase(EnemyWeaknesses, EnemyResistances, StartingHP);
         if (_playerTransform == null)
         {
             _playerTransform = GameObject.Find("Player").transform;
@@ -39,13 +51,18 @@ public class EnemyBasePresenter : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
         _transform.position = Vector3.MoveTowards(_transform.position, _playerTransform.position, _movementSpeed * Time.deltaTime);
     }
 
-    public void DamageEnemy()
+    public void DamageEnemy(SuckableObject suckableObject)
     {
-        EnemyHealth--;
+        Model.OnEnemyShot(suckableObject);
+    }
+
+    public virtual void OnEnemyDeath()
+    {
+        Destroy(this.gameObject);
     }
 }

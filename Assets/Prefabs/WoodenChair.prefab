@@ -5257,6 +5257,8 @@ MonoBehaviour:
   HitableLayer:
     serializedVersion: 2
     m_Bits: 128
+  MaterialType: 1
+  Damage: 2
   _layermaskActivateTimer: 0
   _objectSpread: 0.2
   _deathParticles: {fileID: 4214152801745599620}
