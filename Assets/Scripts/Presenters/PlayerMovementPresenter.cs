@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace ThrashSucker.Presenters
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovementPresenter : MonoBehaviour
     {
         [SerializeField]
         private CharacterController _characterController;

@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace ThrashSucker.Presenters
 {
-    public class CameraMovement : MonoBehaviour
+    public class CameraMovementPresenter : MonoBehaviour
     {
         [SerializeField]
         private Transform _cameraTransform;
