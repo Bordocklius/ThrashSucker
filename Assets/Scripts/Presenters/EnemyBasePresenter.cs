@@ -26,8 +26,8 @@ public class EnemyBasePresenter : PresenterBaseClass<Enemybase>
     {
         if (e.PropertyName.Equals(nameof(Enemybase.Health)))
         {
-            if (Model.Health == 0)
-                OnEnemyDeath();
+            if (Model.Health <= 0)
+                Model_OnEnemyDeath();
         }
     }
 
@@ -60,9 +60,10 @@ public class EnemyBasePresenter : PresenterBaseClass<Enemybase>
     public void DamageEnemy(SuckableObject suckableObject)
     {
         Model.OnEnemyShot(suckableObject);
+        Debug.Log($"Enemy health: {Model.Health}");
     }
 
-    public virtual void OnEnemyDeath()
+    public virtual void Model_OnEnemyDeath()
     {
         Destroy(this.gameObject);
     }

@@ -141,7 +141,7 @@ namespace ThrashSucker.Presenters
             //List<Collider> colliders = Physics.OverlapSphere(_barrelPoint.position, _suctionRange, _layerMask).ToList();
 
             List<Collider> colliders = Physics.OverlapCapsule(_barrelPoint.position, _suctionAreaMax.position, _suctionRange, _layerMask).ToList();
-            Debug.Log(_suctionForce);
+            //Debug.Log(_suctionForce);
 
 
             Vector3 shakeOffset = UnityEngine.Random.insideUnitSphere * _shakeIntensity;
@@ -151,6 +151,7 @@ namespace ThrashSucker.Presenters
             // Add force towards barrelpoint for all colliders in the overlap area
             foreach (Collider collider in colliders)
             {
+                collider.attachedRigidbody.WakeUp();
                 GameObject obj = collider.gameObject;
                 Rigidbody rb = obj.GetComponent<Rigidbody>();
                 if (rb != null)
@@ -193,7 +194,6 @@ namespace ThrashSucker.Presenters
 
         private void BuildUpShootForce()
         {
-            Debug.Log(_shootForce);
             if (_shootForce == _maxShootForce)
                 return;
 

@@ -31,7 +31,6 @@ namespace ThrashSucker.Presenters
             {
                 this.gameObject.SetActive(true);
             }
-            Debug.Log(this.gameObject.activeSelf);
         }
 
         private void OnTriggerEnter(Collider other)

@@ -28,7 +28,6 @@ namespace ThrashSucker.Presenters
                     return;
                 
                 _health = value;
-                Debug.Log(_health);
 
                 if (_health <= 0)
                     Debug.Log("ded");
