@@ -44,11 +44,12 @@ namespace ThrashSucker.Models
         private float _shotLifetime;
         private float _shotTimer;
 
-        public SuckableObject(int objHealth ,float timeToLive, int damage)
+        public SuckableObject(int objHealth ,float timeToLive, int damage, MaterialType materialType)
         {
             ObjectHealth = objHealth;
             _shotLifetime = timeToLive;
             Damage = damage;
+            MaterialType = materialType;
         }
 
         public override void FixedUpdate(float fixedDeltaTime)

@@ -186,6 +186,7 @@ MonoBehaviour:
   _transform: {fileID: 9161426358134238749}
   _playerTransform: {fileID: 0}
   _movementSpeed: 2
-  StartingHP: 2
+  StartingHP: 3
+  Damage: 0
   EnemyWeaknesses: 01000000
-  EnemyResistances: 
+  EnemyResistances: 02000000

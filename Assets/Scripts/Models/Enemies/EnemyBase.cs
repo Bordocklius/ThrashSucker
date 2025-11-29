@@ -36,18 +36,18 @@ namespace ThrashSucker.Models.Enemies
 			if (suckableObject == null) 
 				return;
 
+			float damageReceived = suckableObject.Damage;
+
 			if(EnemyWeaknesses.Contains(suckableObject.MaterialType))
 			{
-				Health -= suckableObject.Damage * 2;
+				damageReceived *= 2;
 			}
-			else if(EnemyWeaknesses.Contains(suckableObject.MaterialType))
+			else if(EnemyResistances.Contains(suckableObject.MaterialType))
 			{
-                Health -= suckableObject.Damage * 0.5f;
+                damageReceived *= 0.5f;
 			}
-			else
-			{
-				Health -= suckableObject.Damage;
-			}
+
+			Health -= damageReceived;
 		}
 
     }

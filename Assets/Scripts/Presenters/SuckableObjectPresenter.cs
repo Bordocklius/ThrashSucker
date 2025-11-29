@@ -50,8 +50,8 @@ namespace ThrashSucker.Presenters
 
         private void Awake()
         {
-            Model = new SuckableObject(ObjectHealth ,TTL, Damage);
-            Rb = GetComponent<Rigidbody>();            
+            Model = new SuckableObject(ObjectHealth ,TTL, Damage, MaterialType);
+            Rb = GetComponent<Rigidbody>();
         }
 
         private void OnEnable()

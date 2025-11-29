@@ -2879,7 +2879,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: ae6ceba370b5c0d42a908ac53fce419a, type: 2}
   - {fileID: 2100000, guid: 4043519b865153047bd41c284a056b42, type: 2}
   SpawnArea: {fileID: 2051858270}
-  BallPrefab: {fileID: 9202793496297060923, guid: 49c7d689cdd0b374eab22aa2a247baa3, type: 3}
+  BallPrefab: {fileID: 308166681913950293, guid: b80f0bc516e23e94284b09128255ea28, type: 3}
   BallQuantity: 100
   spawnAreaSize: {x: 75, y: 1, z: 73}
 --- !u!4 &1849200052
