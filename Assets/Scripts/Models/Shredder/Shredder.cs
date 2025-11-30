@@ -10,10 +10,9 @@ namespace ThrashSucker.Models.ShredderModels
 {
     public class Shredder: UnityModelBaseClass
     {
-        public event EventHandler ObjectShredded;
+        public event EventHandler<ItemShreddedEventArgs> ObjectShredded;
 
         public Queue<GameObject> StoredObjects = new Queue<GameObject>();
-        public float ProcessingTime {  get; set; }
         public bool HasObjects
         {
             get
@@ -29,16 +28,27 @@ namespace ThrashSucker.Models.ShredderModels
             StoredObjects.Enqueue(obj);
         }
 
-        public GameObject ShredObject()
+        public void ShredObject()
         {
-            if (StoredObjects.Count == 0) return null;
-            OnShredObject();
-            return StoredObjects.Dequeue();
+            if (StoredObjects.Count == 0) return;
+            GameObject obj = StoredObjects.Dequeue();
+            OnShredObject(obj);
         }
 
-        public void OnShredObject()
+        public void OnShredObject(GameObject obj)
         {
-            ObjectShredded?.Invoke(this, EventArgs.Empty);
+            ObjectShredded?.Invoke(this, new ItemShreddedEventArgs(obj));
         }
     }
+
+    public class ItemShreddedEventArgs : EventArgs
+    {
+        public GameObject Object { get; private set; }
+
+        public ItemShreddedEventArgs(GameObject obj)
+        {
+            Object = obj;
+        }
+    }
+
 }
