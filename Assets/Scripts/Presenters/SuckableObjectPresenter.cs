@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Collections;
+using ThrashSucker.Singleton;
 
 namespace ThrashSucker.Presenters 
 { 
@@ -52,6 +53,7 @@ namespace ThrashSucker.Presenters
         {
             Model = new SuckableObject(ObjectHealth ,TTL, Damage, MaterialType);
             Rb = GetComponent<Rigidbody>();
+            Singleton<GameManager>.Instance.AddThrashObject(this.gameObject);
         }
 
         private void OnEnable()
@@ -121,6 +123,11 @@ namespace ThrashSucker.Presenters
                     }
                 }
             }
+        }
+
+        private void OnDestroy()
+        {
+            Singleton<GameManager>.Instance.RemoveThrashObject(this.gameObject);
         }
 
 

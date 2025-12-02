@@ -1,4 +1,5 @@
 using System;
+using ThrashSucker.Singleton;
 using TMPro;
 using UnityEngine;
 
