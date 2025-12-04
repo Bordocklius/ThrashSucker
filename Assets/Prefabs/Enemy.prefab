@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 4082373175851962876}
   - component: {fileID: 2241958219615021332}
   - component: {fileID: 343370838319509248}
-  - component: {fileID: -2239007611214279741}
+  - component: {fileID: 4414662128320079721}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -186,12 +186,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transform: {fileID: 9161426358134238749}
   _playerTransform: {fileID: 0}
-  _movementSpeed: 2
+  _movementSpeed: 3
+  NavMeshAgent: {fileID: 4414662128320079721}
   StartingHP: 3
   Damage: 0
   EnemyWeaknesses: 01000000
   EnemyResistances: 02000000
---- !u!195 &-2239007611214279741
+--- !u!195 &4414662128320079721
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,6 +211,6 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

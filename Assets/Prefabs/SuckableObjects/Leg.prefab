@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 326157724267240991}
   - component: {fileID: 4712616838265216369}
   - component: {fileID: 3144990298321696371}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 191929104670975432}
   - component: {fileID: 7397508076804235292}
   - component: {fileID: 4102354700970891693}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DeathParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -4,6 +4,7 @@ using ThrashSucker.Models;
 using ThrashSucker.Models.Enemies;
 using ThrashSucker.Presenters;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace ThrashSucker.Presenters
 {
@@ -17,6 +18,8 @@ namespace ThrashSucker.Presenters
 
         [SerializeField]
         private float _movementSpeed;
+
+        public NavMeshAgent NavMeshAgent;
 
         public float StartingHP;
         public float Damage;
@@ -50,13 +53,17 @@ namespace ThrashSucker.Presenters
             {
                 _playerTransform = GameObject.Find("Player").transform;
             }
+
+            NavMeshAgent.speed = _movementSpeed;
         }
 
 
         // Update is called once per frame
         protected override void Update()
         {
-            _transform.position = Vector3.MoveTowards(_transform.position, _playerTransform.position, _movementSpeed * Time.deltaTime);
+            if(_playerTransform != null) 
+                NavMeshAgent.destination = _playerTransform.position;
+            //_transform.position = Vector3.MoveTowards(_transform.position, _playerTransform.position, _movementSpeed * Time.deltaTime);
         }
 
         public void DamageEnemy(SuckableObject suckableObject)
