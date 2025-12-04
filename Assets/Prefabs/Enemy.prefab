@@ -188,7 +188,10 @@ MonoBehaviour:
   _playerTransform: {fileID: 0}
   _movementSpeed: 3
   _randomRadius: 9
-  _detectionRadius: 10
+  _detectionEnterRadius: 15
+  _detectionExitRadius: 20
+  _minWanderDistance: 2
+  _wanderTime: 5
   NavMeshAgent: {fileID: 4414662128320079721}
   StartingHP: 3
   Damage: 0

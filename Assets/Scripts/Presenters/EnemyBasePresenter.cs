@@ -21,7 +21,13 @@ namespace ThrashSucker.Presenters
         [SerializeField]
         private float _randomRadius;
         [SerializeField]
-        private float _detectionRadius;
+        private float _detectionEnterRadius;
+        [SerializeField]
+        private float _detectionExitRadius;
+        [SerializeField]
+        private float _minWanderDistance;
+        [SerializeField]
+        private float _wanderTime;
         public NavMeshAgent NavMeshAgent;
         
         
@@ -62,7 +68,10 @@ namespace ThrashSucker.Presenters
             }
 
             NavMeshAgent.speed = _movementSpeed;
-            Model.DetectionEnterRadius = _detectionRadius;
+            Model.DetectionEnterRadius = _detectionEnterRadius;
+            Model.DetectionExitRadius = _detectionExitRadius;
+            Model.MinTargetDistance = _minWanderDistance;
+            Model.WanderTimeout = _wanderTime;
         }
 
 
@@ -91,14 +100,19 @@ namespace ThrashSucker.Presenters
 
         private void OnDrawGizmos()
         {
-            if(Vector3.Distance(transform.position, _playerTransform.position) <= _detectionRadius)
+            if(Vector3.Distance(transform.position, _playerTransform.position) <= _detectionEnterRadius)
                 Gizmos.DrawLine(NavMeshAgent.transform.position, _playerTransform.position);
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, _detectionRadius);
+            Gizmos.DrawWireSphere(transform.position, _detectionEnterRadius);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, _detectionExitRadius);
 
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, _randomRadius);
+
+            Gizmos.color = Color.white;
+            Gizmos.DrawLine(transform.position, NavMeshAgent.destination);
         }
 
 

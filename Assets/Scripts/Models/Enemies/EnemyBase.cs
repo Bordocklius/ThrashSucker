@@ -27,10 +27,11 @@ namespace ThrashSucker.Models.Enemies
 		// Navmesh stuff
 		public float RandomRadius = 2f;
 		public int MaxPickAttempts = 2;
-		public float WanderTimeout;
+		public float WanderTimeout = 5f;
 		public float StuckTimeout = 5f;
 		public float DetectionEnterRadius = 10f;
 		public float DetectionExitRadius = 20f;
+		public float MinTargetDistance = 2f;
 		private EnemyMovementFSM _movementFSM;
 
         public Enemybase(List<MaterialType> weaknesses, List<MaterialType> resistances, float startingHP, float damage, IEnemyMovement adapter, float randomRadius)
