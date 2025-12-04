@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ThrashSucker.FSM;
+using UnityEngine;
 
 namespace ThrashSucker.Models.Enemies
 {
@@ -11,6 +12,11 @@ namespace ThrashSucker.Models.Enemies
     {
         public class EnemyMovementBaseState : IState
         {
+            public float PlayerTrackingTimer;
+            public float PlayerTrackingDelay = 0.15f;
+
+            public Vector3 LastTarget;
+
             public EnemyMovementFSM FSM { get; private set; }
 
             public Enemybase Context { get => FSM.Context; }

@@ -20,6 +20,7 @@ namespace ThrashSucker.Models.Enemies
             // States
             public EnemyWanderState EnemyWanderState { get; protected set; }
             public EnemyChaseState EnemyChaseState { get; protected set; }
+            public EnemySearchState EnemySearchState { get; protected set; }
 
             // Current state
             public new EnemyMovementBaseState CurrentState { get => base.CurrentState as EnemyMovementBaseState; }
@@ -31,6 +32,8 @@ namespace ThrashSucker.Models.Enemies
 
                 EnemyWanderState = new EnemyWanderState(this);
                 EnemyChaseState = new EnemyChaseState(this);
+                EnemySearchState = new EnemySearchState(this);
+
                 TransitionTo(EnemyWanderState);
             }
         }

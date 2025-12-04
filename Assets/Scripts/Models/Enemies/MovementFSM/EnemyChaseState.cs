@@ -10,28 +10,31 @@ namespace ThrashSucker.Models.Enemies
     {
         public class EnemyChaseState: EnemyMovementBaseState
         {
-            private float _playerTrackingTimer;
-
-            private float _playerTrackingInterval = 0.1f;
-
             public EnemyChaseState(EnemyMovementFSM fsm) : base(fsm) { }
 
             public override void OnEnter()
             {
-                _playerTrackingTimer = 0f;
+                PlayerTrackingTimer = 0f;
                 FSM.Adapter.RequestMoveTo(FSM.Adapter.GetTargetPosition());
             }
 
             public override void Update(float deltaTime)
             {
-                _playerTrackingTimer+= deltaTime;
+                PlayerTrackingTimer += deltaTime;
 
-                if(_playerTrackingTimer >= _playerTrackingInterval)
+                if(PlayerTrackingTimer >= PlayerTrackingDelay)
                 {
                     if (FSM.Adapter.GetDistanceToPlayer() < Context.DetectionExitRadius)
+                    {
                         FSM.Adapter.RequestMoveTo(FSM.Adapter.GetTargetPosition());
+                    }
                     else
-                        FSM.TransitionTo(FSM.EnemyWanderState);
+                    {
+                        LastTarget = FSM.Adapter.GetTargetPosition();
+                        FSM.TransitionTo(FSM.EnemySearchState);
+                    }
+
+                    PlayerTrackingTimer -= PlayerTrackingDelay;
                 }
             }
         }

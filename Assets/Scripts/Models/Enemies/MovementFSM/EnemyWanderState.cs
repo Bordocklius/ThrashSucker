@@ -13,7 +13,6 @@ namespace ThrashSucker.Models.Enemies
         {
             private float _wanderTimer;
             private float _stuckTimer;
-            private Vector3 _destination;
 
             public EnemyWanderState(EnemyMovementFSM fsm): base(fsm) { }
 
@@ -61,7 +60,7 @@ namespace ThrashSucker.Models.Enemies
                     if (distance >= Context.MinTargetDistance)
                     {
                         FSM.Adapter.RequestMoveTo(destination);
-                        _destination = destination;
+                        LastTarget = destination;
                         return;
                     }
                 }           
