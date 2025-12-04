@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace ThrashSucker.Models.Enemies
 {
-    public class Enemybase: UnityModelBaseClass
+    public partial class Enemybase: UnityModelBaseClass
     {
 		private float _health;
 		public float Health
@@ -23,12 +24,29 @@ namespace ThrashSucker.Models.Enemies
 
 		public float Damage = 2;
 
-        public Enemybase(List<MaterialType> weaknesses, List<MaterialType> resistances, float startingHP, float damage)
+		// Navmesh stuff
+		public float RandomRadius = 2f;
+		public int MaxPickAttempts = 2;
+		public float WanderTimeout;
+		public float StuckTimeout = 5f;
+		public float DetectionEnterRadius = 10f;
+		public float DetectionExitRadius = 20f;
+		private EnemyMovementFSM _movementFSM;
+
+        public Enemybase(List<MaterialType> weaknesses, List<MaterialType> resistances, float startingHP, float damage, IEnemyMovement adapter, float randomRadius)
         {
 			EnemyWeaknesses = weaknesses;
 			EnemyResistances = resistances;
 			Health = startingHP;
 			Damage = damage;
+
+			RandomRadius = randomRadius;
+			_movementFSM = new EnemyMovementFSM(this, adapter);
+        }
+
+        public override void Update(float deltaTime)
+        {
+            _movementFSM.Update(deltaTime);
         }
 
 		public virtual void OnEnemyShot(SuckableObject suckableObject)

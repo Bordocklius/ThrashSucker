@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 71762341}
   - component: {fileID: 71762340}
   - component: {fileID: 71762339}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1370,7 +1370,7 @@ GameObject:
   - component: {fileID: 949282694}
   - component: {fileID: 949282693}
   - component: {fileID: 949282692}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2018,7 +2018,7 @@ GameObject:
   - component: {fileID: 1537863649}
   - component: {fileID: 1537863648}
   - component: {fileID: 1537863647}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2958,7 +2958,7 @@ GameObject:
   - component: {fileID: 1875855015}
   - component: {fileID: 1875855014}
   - component: {fileID: 1875855013}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3184,6 +3184,7 @@ GameObject:
   - component: {fileID: 2095249119}
   - component: {fileID: 2095249118}
   - component: {fileID: 2095249117}
+  - component: {fileID: 2095249121}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -3281,6 +3282,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 815587866}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2095249121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095249116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1001 &2113381206
 PrefabInstance:
   m_ObjectHideFlags: 0

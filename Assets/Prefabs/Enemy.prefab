@@ -187,6 +187,8 @@ MonoBehaviour:
   _transform: {fileID: 9161426358134238749}
   _playerTransform: {fileID: 0}
   _movementSpeed: 3
+  _randomRadius: 9
+  _detectionRadius: 10
   NavMeshAgent: {fileID: 4414662128320079721}
   StartingHP: 3
   Damage: 0
