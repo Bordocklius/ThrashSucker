@@ -29,7 +29,6 @@ namespace ThrashSucker.Presenters
 
         private IEnumerator SpawnThrash()
         {
-            int tmp = 0;
             for(int i = 0; i < SpawnCount; i++)
             {                
                 Vector3 randomPoint = FindValidSpawnPoint();
@@ -39,13 +38,6 @@ namespace ThrashSucker.Presenters
                 itemToSpawn.transform.position = randomPoint + SpawnOffset;
 
                 yield return null;
-
-                //tmp++;
-                //if(tmp >= 10)
-                //{
-                //    tmp = 0;
-                //    yield return new WaitForSeconds(0.2f);
-                //}
             }
         }
 
