@@ -194,7 +194,7 @@ MonoBehaviour:
   _wanderTime: 5
   NavMeshAgent: {fileID: 4414662128320079721}
   StartingHP: 3
-  Damage: 0
+  Damage: 1
   EnemyWeaknesses: 01000000
   EnemyResistances: 02000000
 --- !u!195 &4414662128320079721

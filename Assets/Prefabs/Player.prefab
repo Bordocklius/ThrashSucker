@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3970913939346235358}
   - component: {fileID: 6180511606031376973}
   - component: {fileID: 4392381334619138082}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Ammocount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,8 +74,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 8708263939080213293}
   - component: {fileID: 593022125505853593}
   - component: {fileID: 1867019138858247464}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,7 +247,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7142718392690123363}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SuctionAreaMax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 1678037321113983581}
   - component: {fileID: 2159321117130327285}
   - component: {fileID: 6174315066799661069}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,6 +393,10 @@ MonoBehaviour:
   _characterController: {fileID: 6253510717870392651}
   _mainCamera: {fileID: 227786941751511151}
   _movementSpeed: 10
+  HitableLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  StartingHP: 10
 --- !u!114 &6174315066799661069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,6 +419,7 @@ MonoBehaviour:
   _suctionAreaCurrent: {fileID: 9129088607664628421}
   _suctionAreaIncreaseMultiplier: 1
   _suckingParticles: {fileID: 3613917021258549103}
+  _shakeIntensity: 0
   _maxShootForce: 30
   _shootForceIncreaseMultiplier: 25
   _range: 200
@@ -427,7 +432,8 @@ MonoBehaviour:
   _collectionPoint: {fileID: 0}
   IsCannonSucking: 0
   _gunTransform: {fileID: 7258545214832006359}
-  Text: {fileID: 4392381334619138082}
+  AmmoCapacityText: {fileID: 4392381334619138082}
+  ShootForceText: {fileID: 0}
 --- !u!1 &3809241578067214553
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,7 +443,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9129088607664628421}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SuctionAreaCurrent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +477,7 @@ GameObject:
   - component: {fileID: 2010170170765629559}
   - component: {fileID: 3645882395109421061}
   - component: {fileID: 752670475112920342}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -583,7 +589,7 @@ GameObject:
   - component: {fileID: 227786941751511151}
   - component: {fileID: 2948025848050126425}
   - component: {fileID: 8992222292231205966}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -726,6 +732,18 @@ PrefabInstance:
       propertyPath: _audioSource
       value: 
       objectReference: {fileID: 9076591648011229581}
+    - target: {fileID: 2246743822144019142, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2282395417118601671, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2535294463435395098, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3307938895530648778, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.35
@@ -734,9 +752,25 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.91
       objectReference: {fileID: 0}
+    - target: {fileID: 3632293640535961241, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4697940337859697901, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5079890528071586776, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
       propertyPath: m_Name
       value: Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5079890528071586776, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262708163664617238, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5563270630849399138, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -781,6 +815,10 @@ PrefabInstance:
     - target: {fileID: 6467408006577167364, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
       propertyPath: m_Radius
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660044048392298076, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

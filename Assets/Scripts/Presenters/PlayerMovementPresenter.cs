@@ -69,7 +69,7 @@ namespace ThrashSucker.Presenters
 
             if(!_characterController.isGrounded)
             {
-                _movementVelocity += Physics.gravity * Time.deltaTime;
+                _movementVelocity += Physics.gravity;
             }
 
             _movementVelocity *= _movementSpeed * Time.deltaTime;
