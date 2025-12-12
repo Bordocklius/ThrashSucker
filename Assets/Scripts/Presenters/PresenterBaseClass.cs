@@ -26,6 +26,7 @@ namespace TrashSucker.Presenters
                 ModelSetInitialisation(previousModel);
             }
         }
+
         protected abstract void Model_OnPropertyChanged(object sender, PropertyChangedEventArgs e);
 
         protected virtual void ModelSetInitialisation(T previousModel)
