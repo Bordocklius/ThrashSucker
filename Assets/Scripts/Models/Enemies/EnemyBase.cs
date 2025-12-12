@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace ThrashSucker.Models.Enemies
+namespace TrashSucker.Models.Enemies
 {
     public partial class Enemybase: UnityModelBaseClass
     {

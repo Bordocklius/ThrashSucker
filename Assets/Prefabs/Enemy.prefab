@@ -186,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transform: {fileID: 9161426358134238749}
   _playerTransform: {fileID: 0}
-  _movementSpeed: 3
+  _movementSpeed: 4
   _randomRadius: 9
   _detectionEnterRadius: 15
   _detectionExitRadius: 20
@@ -195,6 +195,7 @@ MonoBehaviour:
   NavMeshAgent: {fileID: 4414662128320079721}
   StartingHP: 3
   Damage: 1
+  KnockbackStrength: 15
   EnemyWeaknesses: 01000000
   EnemyResistances: 02000000
 --- !u!195 &4414662128320079721
@@ -207,7 +208,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

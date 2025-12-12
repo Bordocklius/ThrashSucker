@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ThrashSucker.Models.Enemies
+namespace TrashSucker.Models.Enemies
 {
     public partial class Enemybase
     {

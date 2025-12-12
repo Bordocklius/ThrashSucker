@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace ThrashSucker.Models.ShredderModels
+namespace TrashSucker.Models.ShredderModels
 {
     public class Shredder: UnityModelBaseClass
     {

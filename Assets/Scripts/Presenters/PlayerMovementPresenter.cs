@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace ThrashSucker.Presenters
+namespace TrashSucker.Presenters
 {
+    [SelectionBase]
     public class PlayerMovementPresenter : MonoBehaviour
     {
         [SerializeField]
@@ -11,9 +12,16 @@ namespace ThrashSucker.Presenters
         private Camera _mainCamera;
         [SerializeField]
         private float _movementSpeed;
+        [SerializeField]
+        private float _knockbackDuration = 0.15f;
+        [SerializeField]
+        private float _knockbackDamping = 5f;
 
         private Vector2 _movementInput;
         private Vector3 _verticalVelocity;
+
+        private Vector3 _knockbackVelocity;
+        private float _knockbackTimer;
 
         public LayerMask HitableLayer;
         public float StartingHP;
@@ -68,14 +76,23 @@ namespace ThrashSucker.Presenters
             {
                 if (_verticalVelocity.y < 0f)
                     _verticalVelocity.y = -2f;
-            }
+            }          
 
             _verticalVelocity += Physics.gravity * Time.deltaTime;
 
-            Vector3 horizontalMove = movementDirection * _movementSpeed; // m/s
-            Vector3 move = (horizontalMove + _verticalVelocity) * Time.deltaTime; // verticalVelocity is m/s in Y
+            Vector3 horizontalMove = movementDirection * _movementSpeed; // m/s           
+            Vector3 move = horizontalMove + _verticalVelocity; // verticalVelocity is m/s in Y
 
-            _characterController.Move(move);
+            if (_knockbackTimer <= _knockbackDuration)
+            {
+                _knockbackTimer += Time.deltaTime;
+
+                move += _knockbackVelocity;
+
+                _knockbackVelocity = Vector3.Lerp(_knockbackVelocity, Vector3.zero, _knockbackDamping * Time.deltaTime);
+            }
+
+            _characterController.Move(move * Time.deltaTime);
         }
 
         private void OnMove(InputValue value)
@@ -90,12 +107,21 @@ namespace ThrashSucker.Presenters
             {
                 if(collision.gameObject.TryGetComponent<EnemyBasePresenter>(out EnemyBasePresenter enemy))
                 {
-                    Health-= enemy.Damage;
+                    Health -= enemy.Damage;
+                    ApplyEnemyKnockback(collision.transform.position, enemy.KnockbackStrength);
                 }
             }
         }
 
+        private void ApplyEnemyKnockback(Vector3 position, float strength)
+        {
+            if(strength <= 0f) 
+                strength = 1f;
 
+            _knockbackVelocity = (_characterController.transform.position - position).normalized * strength;
+            _knockbackTimer = 0f;
+            Debug.DrawRay(position, _knockbackVelocity, Color.black, 3f);
+        }
     }
 
 }

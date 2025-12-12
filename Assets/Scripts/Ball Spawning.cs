@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace ThrashSucker.Presenters
+namespace TrashSucker.Presenters
 {
     public class BallSpawning : MonoBehaviour
     {

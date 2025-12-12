@@ -5,12 +5,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ThrashSucker.Models.ShredderModels;
+using TrashSucker.Models.ShredderModels;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ThrashSucker.Presenters
+namespace TrashSucker.Presenters
 {
     public class ShredderPresenter: PresenterBaseClass<Shredder>
     {

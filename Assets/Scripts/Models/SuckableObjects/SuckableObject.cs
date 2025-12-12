@@ -1,9 +1,9 @@
 using System;
-using ThrashSucker.Singleton;
+using TrashSucker.Singleton;
 using TMPro;
 using UnityEngine;
 
-namespace ThrashSucker.Models
+namespace TrashSucker.Models
 {
     public class SuckableObject: UnityModelBaseClass
     {

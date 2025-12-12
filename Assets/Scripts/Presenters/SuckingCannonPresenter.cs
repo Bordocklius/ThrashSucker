@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace ThrashSucker.Presenters
+namespace TrashSucker.Presenters
 {
     public class SuckingCannonPresenter : MonoBehaviour
     {

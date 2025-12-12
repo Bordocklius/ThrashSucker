@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ThrashSucker.Models
+namespace TrashSucker.Models
 {
     public abstract class UnityModelBaseClass : ModelBaseClass
     {

@@ -4,11 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ThrashSucker.Models;
+using TrashSucker.Models;
 using UnityEngine;
-using ThrashSucker.Singleton;
+using TrashSucker.Singleton;
 
-namespace ThrashSucker.Presenters
+namespace TrashSucker.Presenters
 {
     public class GameManagerPresenter: PresenterBaseClass<GameManager>
     {

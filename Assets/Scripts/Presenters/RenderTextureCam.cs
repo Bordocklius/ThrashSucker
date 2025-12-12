@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace ThrashSucker.Presenters
+namespace TrashSucker.Presenters
 {
     public class RenderTextureCam: MonoBehaviour
     {

@@ -393,6 +393,8 @@ MonoBehaviour:
   _characterController: {fileID: 6253510717870392651}
   _mainCamera: {fileID: 227786941751511151}
   _movementSpeed: 10
+  _knockbackDuration: 0.15
+  _knockbackDamping: 5
   HitableLayer:
     serializedVersion: 2
     m_Bits: 128

@@ -1,13 +1,13 @@
 using UnityEngine;
-using ThrashSucker.Models;
+using TrashSucker.Models;
 using System.ComponentModel;
 using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Collections;
-using ThrashSucker.Singleton;
+using TrashSucker.Singleton;
 
-namespace ThrashSucker.Presenters 
+namespace TrashSucker.Presenters 
 { 
     public class SuckableObjectPresenter : PresenterBaseClass<SuckableObject>
     {

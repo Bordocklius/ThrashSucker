@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.ComponentModel;
-using ThrashSucker.Models;
+using TrashSucker.Models;
 
 
-namespace ThrashSucker.Presenters
+namespace TrashSucker.Presenters
 {
     public abstract class PresenterBaseClass<T> : MonoBehaviour where T : UnityModelBaseClass
     {

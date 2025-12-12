@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace ThrashSucker.Models.Enemies
+namespace TrashSucker.Models.Enemies
 {
     public partial class Enemybase
     {

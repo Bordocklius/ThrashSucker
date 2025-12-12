@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ThrashSucker.FSM;
+using TrashSucker.FSM;
 
-namespace ThrashSucker.Models.Enemies
+namespace TrashSucker.Models.Enemies
 {
     public partial class Enemybase
     {

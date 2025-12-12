@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
-using ThrashSucker.Models;
-using ThrashSucker.Models.Enemies;
-using ThrashSucker.Presenters;
+using TrashSucker.Models;
+using TrashSucker.Models.Enemies;
+using TrashSucker.Presenters;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace ThrashSucker.Presenters
+namespace TrashSucker.Presenters
 {
+    [SelectionBase]
     public class EnemyBasePresenter : PresenterBaseClass<Enemybase>, IEnemyMovement
     {      
         [Header("Movement")]
@@ -36,6 +37,7 @@ namespace ThrashSucker.Presenters
         [Header("Enemy stats")]
         public float StartingHP;
         public float Damage;
+        public float KnockbackStrength = 8f;
 
         public List<MaterialType> EnemyWeaknesses;
         public List<MaterialType> EnemyResistances;

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ThrashSucker.Presenters
+namespace TrashSucker.Presenters
 {
     public class SuckingTrigger : MonoBehaviour
     {

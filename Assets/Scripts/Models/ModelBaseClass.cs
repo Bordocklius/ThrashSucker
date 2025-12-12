@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace ThrashSucker.Models
+namespace TrashSucker.Models
 {
     public class ModelBaseClass : INotifyPropertyChanged
     {

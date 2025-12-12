@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ThrashSucker.Presenters;
+using TrashSucker.Presenters;
 using UnityEngine;
 
-namespace ThrashSucker.Models
+namespace TrashSucker.Models
 {
     public class GameManager: UnityModelBaseClass
     {

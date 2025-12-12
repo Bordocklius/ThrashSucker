@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace ThrashSucker.Presenters
+namespace TrashSucker.Presenters
 {
     public class TrashSpawner: MonoBehaviour
     {
