@@ -21,9 +21,15 @@ namespace ThrashSucker.Presenters
         [SerializeField]
         private TextMeshProUGUI _objText;
         [SerializeField]
-        private Image _progressBar;
+        private GameObject _progressBarObj;
+        [SerializeField]
+        private Image _progressBarImage;
         [SerializeField]
         private ParticleSystem _particleSystem;
+        [SerializeField]
+        private Color _lerpColor;
+
+        private Color _startColor;
 
         private float _progress;
         private float Progress
@@ -56,11 +62,13 @@ namespace ThrashSucker.Presenters
         private void Awake()
         {
             Model = new Shredder();
+            _startColor = _progressBarImage.color;
         }
 
         private IEnumerator ProcessObjects()
         {
             _particleSystem.Play();
+            _progressBarObj.SetActive(true);
             while(Model.HasObjects)
             {
                 float timer = 0f;
@@ -77,6 +85,7 @@ namespace ThrashSucker.Presenters
 
             _processingRoutine = null;
             _particleSystem.Stop();
+            _progressBarObj.SetActive(false);
         }
 
         public void AddObject(GameObject obj)
@@ -101,7 +110,8 @@ namespace ThrashSucker.Presenters
 
         private void OnProgressChanged()
         {
-            _progressBar.fillAmount = Progress;
+            _progressBarImage.fillAmount = Progress;
+            _progressBarImage.color = Color.Lerp(_startColor, _lerpColor, Progress);
         }
 
         private void OnTriggerEnter(Collider other)
