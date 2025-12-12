@@ -8,7 +8,7 @@ using UnityEngine.AI;
 
 namespace ThrashSucker.Presenters
 {
-    public class ThrashSpawningSystem: MonoBehaviour
+    public class TrashSpawner: MonoBehaviour
     {
         public Transform Transform;
 
@@ -30,7 +30,7 @@ namespace ThrashSucker.Presenters
         private IEnumerator SpawnThrash()
         {
             for(int i = 0; i < SpawnCount; i++)
-            {                
+            {             
                 Vector3 randomPoint = FindValidSpawnPoint();
                 if (randomPoint.y <= 0)
                     Debug.Log(randomPoint.y);
