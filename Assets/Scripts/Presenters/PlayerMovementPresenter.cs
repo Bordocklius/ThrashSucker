@@ -12,8 +12,8 @@ namespace ThrashSucker.Presenters
         [SerializeField]
         private float _movementSpeed;
 
-        private Vector3 _movementVelocity;
         private Vector2 _movementInput;
+        private Vector3 _verticalVelocity;
 
         public LayerMask HitableLayer;
         public float StartingHP;
@@ -57,23 +57,25 @@ namespace ThrashSucker.Presenters
 
         private void HandleMovement()
         {
-            if(_movementInput == null)
-                return;
-
             //Make charactermovement follow camera orientation
             Vector3 cameraForward = new Vector3(_mainCamera.transform.forward.x, 0, _mainCamera.transform.forward.z).normalized;
             Vector3 cameraRight = new Vector3(_mainCamera.transform.right.x, 0, _mainCamera.transform.right.z).normalized;
 
-            _movementVelocity = (cameraRight * _movementInput.x + cameraForward * _movementInput.y).normalized;
+            Vector3 movementDirection = (cameraRight * _movementInput.x + cameraForward * _movementInput.y).normalized;
             float movementspeed = _movementSpeed;
 
-            if(!_characterController.isGrounded)
+            if(_characterController.isGrounded)
             {
-                _movementVelocity += Physics.gravity;
+                if (_verticalVelocity.y < 0f)
+                    _verticalVelocity.y = -2f;
             }
 
-            _movementVelocity *= _movementSpeed * Time.deltaTime;
-            _characterController.Move(_movementVelocity);
+            _verticalVelocity += Physics.gravity * Time.deltaTime;
+
+            Vector3 horizontalMove = movementDirection * _movementSpeed; // m/s
+            Vector3 move = (horizontalMove + _verticalVelocity) * Time.deltaTime; // verticalVelocity is m/s in Y
+
+            _characterController.Move(move);
         }
 
         private void OnMove(InputValue value)
