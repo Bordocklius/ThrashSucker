@@ -7,11 +7,15 @@ using System.Threading.Tasks;
 using TrashSucker.Models;
 using UnityEngine;
 using TrashSucker.Singleton;
+using TMPro;
 
 namespace TrashSucker.Presenters
 {
     public class GameManagerPresenter: PresenterBaseClass<GameManager>
     {
+        [SerializeField]
+        private TextMeshProUGUI _objectiveText;
+
         protected override void ModelSetInitialisation(GameManager previousModel)
         {
             base.ModelSetInitialisation(previousModel);
@@ -25,7 +29,22 @@ namespace TrashSucker.Presenters
         private void Awake()
         {
             Model = Singleton<GameManager>.Instance;
+            Model.TrashRemoved += Model_OnTrashRemoved;
         }
 
+        private void Start()
+        {
+            SetObjectiveText(Model.TrashObjects.Count.ToString());
+        }
+
+        protected void Model_OnTrashRemoved(object sender, EventArgs e)
+        {
+            SetObjectiveText(Model.TrashObjects.Count.ToString());
+        }
+
+        private void SetObjectiveText(string amount)
+        {
+            _objectiveText.text = $"Trash left: {amount}";
+        } 
     }
 }

@@ -35,10 +35,9 @@ namespace TrashSucker.Presenters
                 if (randomPoint.y <= 0)
                     Debug.Log(randomPoint.y);
                 GameObject itemToSpawn = Instantiate(SpawnItems[Random.Range(0, SpawnItems.Length)], Transform);
-                itemToSpawn.transform.position = randomPoint + SpawnOffset;
-
-                yield return null;
+                itemToSpawn.transform.position = randomPoint + SpawnOffset;                
             }
+            yield return null;
         }
 
         private Vector3 FindValidSpawnPoint()
