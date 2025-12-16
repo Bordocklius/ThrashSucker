@@ -186,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transform: {fileID: 9161426358134238749}
   _playerTransform: {fileID: 0}
-  _movementSpeed: 4
+  _movementSpeed: 6
   _randomRadius: 9
   _detectionEnterRadius: 15
   _detectionExitRadius: 20

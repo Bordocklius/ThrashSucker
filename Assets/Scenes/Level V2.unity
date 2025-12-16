@@ -1191,7 +1191,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2159321117130327285, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
       propertyPath: _jumpVelocity
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2159321117130327285, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
       propertyPath: MaxSprintTimer
