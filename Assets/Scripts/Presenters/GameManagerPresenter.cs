@@ -29,7 +29,7 @@ namespace TrashSucker.Presenters
         private void Awake()
         {
             Model = Singleton<GameManager>.Instance;
-            Model.TrashRemoved += Model_OnTrashRemoved;
+            Model.TrashEvent += Model_OnTrashEvent;
         }
 
         private void Start()
@@ -37,7 +37,7 @@ namespace TrashSucker.Presenters
             SetObjectiveText(Model.TrashObjects.Count.ToString());
         }
 
-        protected void Model_OnTrashRemoved(object sender, EventArgs e)
+        protected void Model_OnTrashEvent(object sender, EventArgs e)
         {
             SetObjectiveText(Model.TrashObjects.Count.ToString());
         }

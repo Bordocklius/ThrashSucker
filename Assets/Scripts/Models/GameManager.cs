@@ -10,7 +10,7 @@ namespace TrashSucker.Models
 {
     public class GameManager: UnityModelBaseClass
     {
-        public event EventHandler TrashRemoved;
+        public event EventHandler TrashEvent;
 
         public List<GameObject> TrashObjects = new List<GameObject>();
 
@@ -23,13 +23,14 @@ namespace TrashSucker.Models
             if(obj.TryGetComponent<SuckableObjectPresenter>(out SuckableObjectPresenter thrashObj))
             {
                 TrashObjects.Add(obj);
+                TrashEvent?.Invoke(this, EventArgs.Empty);
             }
         }
 
         public void RemoveThrashObject(GameObject obj)
         {
             TrashObjects.Remove(obj);
-            TrashRemoved?.Invoke(this, EventArgs.Empty);
+            TrashEvent?.Invoke(this, EventArgs.Empty);
             Debug.Log($"Obj removed, {TrashObjects.Count} left");
             if(TrashObjects.Count <= 0 )
             {
