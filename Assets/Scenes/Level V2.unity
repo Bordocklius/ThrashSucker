@@ -1403,14 +1403,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2055092021}
     - target: {fileID: 6174315066799661069, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: _maxSuctionForce
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174315066799661069, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: _minSuctionForce
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174315066799661069, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
       propertyPath: _crosshairTransform
       value: 
       objectReference: {fileID: 1603062866}
