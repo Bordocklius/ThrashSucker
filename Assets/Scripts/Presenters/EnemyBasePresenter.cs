@@ -54,6 +54,10 @@ namespace TrashSucker.Presenters
         [SerializeField]
         private ParticleSystem _bloodParticles;
         private Material _enemyMaterial;
+        [SerializeField]
+        private AudioSource _audioSource;
+        [SerializeField]
+        private AudioClip _damageClip;
 
         private Coroutine _flashDamage;
 
@@ -111,6 +115,7 @@ namespace TrashSucker.Presenters
         public void DamageEnemy(SuckableObject suckableObject)
         {
             _bloodParticles.Play();
+            _audioSource.PlayOneShot(_damageClip);
             Model.OnEnemyShot(suckableObject);
             _flashDamage = StartCoroutine(FlashDamage());
         }

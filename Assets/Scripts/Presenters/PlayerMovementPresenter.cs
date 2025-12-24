@@ -9,6 +9,11 @@ namespace TrashSucker.Presenters
         private TrashInputActions _inputActions;
 
         [SerializeField]
+        private AudioSource _audioSource;
+        [SerializeField]
+        private AudioClip _damageClip;
+
+        [SerializeField]
         private CharacterController _characterController;
         [SerializeField]
         private Camera _mainCamera;
@@ -186,6 +191,7 @@ namespace TrashSucker.Presenters
         {
             if(other.gameObject.transform.parent.TryGetComponent<EnemyBasePresenter>(out EnemyBasePresenter enemy))
             {
+                _audioSource.PlayOneShot(_damageClip);
                 Health -= enemy.Damage;
                 ApplyEnemyKnockback(other.transform.position, enemy.KnockbackStrength);
             }

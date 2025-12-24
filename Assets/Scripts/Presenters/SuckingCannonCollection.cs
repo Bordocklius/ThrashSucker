@@ -15,6 +15,8 @@ namespace TrashSucker.Presenters
 
         [SerializeField]
         private AudioSource _audioSource;
+        [SerializeField]
+        private AudioClip _suckClip;
 
         private void Awake()
         {
@@ -56,7 +58,7 @@ namespace TrashSucker.Presenters
                     //_canon.AmmoList.Add(obj);
                     obj.SetActive(false);
                     _canon.UpdateCapacityText();
-                    _audioSource.Play();
+                    _audioSource.PlayOneShot(_suckClip);
                 }
             }
         }
