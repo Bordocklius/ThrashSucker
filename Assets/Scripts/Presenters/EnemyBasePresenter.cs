@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using TrashSucker.Models;
@@ -42,6 +43,20 @@ namespace TrashSucker.Presenters
         public List<MaterialType> EnemyWeaknesses;
         public List<MaterialType> EnemyResistances;
 
+        [Space(10)]
+        [Header("Visual")]
+        [SerializeField]
+        private MeshRenderer _meshRenderer;        
+        [SerializeField]
+        private Material _flashMaterial;
+        [SerializeField]
+        private float _flashTime;
+        [SerializeField]
+        private ParticleSystem _bloodParticles;
+        private Material _enemyMaterial;
+
+        private Coroutine _flashDamage;
+
         protected override void Model_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals(nameof(Enemybase.Health)))
@@ -74,6 +89,10 @@ namespace TrashSucker.Presenters
             Model.DetectionExitRadius = _detectionExitRadius;
             Model.MinTargetDistance = _minWanderDistance;
             Model.WanderTimeout = _wanderTime;
+
+            if(_meshRenderer == null)
+                _meshRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
+            _enemyMaterial = _meshRenderer.material;
         }
 
 
@@ -91,12 +110,31 @@ namespace TrashSucker.Presenters
 
         public void DamageEnemy(SuckableObject suckableObject)
         {
+            _bloodParticles.Play();
             Model.OnEnemyShot(suckableObject);
-            Debug.Log($"Enemy health: {Model.Health}");
+            _flashDamage = StartCoroutine(FlashDamage());
+        }
+
+        private IEnumerator FlashDamage()
+        {            
+            _meshRenderer.material = _flashMaterial;
+            yield return new WaitForSeconds(_flashTime);
+            _meshRenderer.material = _enemyMaterial;
         }
 
         public virtual void Model_OnEnemyDeath()
         {
+            _bloodParticles.Play();
+            NavMeshAgent.enabled = false;
+            StartCoroutine(DeathAnimation());
+        }
+
+        private IEnumerator DeathAnimation()
+        {
+            while(!_bloodParticles.isStopped)
+            {
+                yield return null;
+            }
             Destroy(this.gameObject);
         }
 

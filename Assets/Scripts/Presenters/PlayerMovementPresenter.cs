@@ -170,15 +170,31 @@ namespace TrashSucker.Presenters
 
         private void OnCollisionEnter(Collision collision)
         {
-            // Colide with hittable object
-            if (collision != null && ((1 << collision.gameObject.layer) & HitableLayer) != 0)
+            if (collision.gameObject.TryGetComponent<EnemyBasePresenter>(out EnemyBasePresenter enemy))
             {
-                if (collision.gameObject.TryGetComponent<EnemyBasePresenter>(out EnemyBasePresenter enemy))
-                {
-                    Health -= enemy.Damage;
-                    ApplyEnemyKnockback(collision.transform.position, enemy.KnockbackStrength);
-                }
+                Health -= enemy.Damage;
+                ApplyEnemyKnockback(collision.transform.position, enemy.KnockbackStrength);
             }
+            // Colide with hittable object
+            //if (collision != null && ((1 << collision.gameObject.layer) & HitableLayer) != 0)
+            //{
+                
+            //}
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.gameObject.transform.parent.TryGetComponent<EnemyBasePresenter>(out EnemyBasePresenter enemy))
+            {
+                Health -= enemy.Damage;
+                ApplyEnemyKnockback(other.transform.position, enemy.KnockbackStrength);
+            }
+
+            //if (other.gameObject.TryGetComponent<EnemyBasePresenter>(out EnemyBasePresenter enemy))
+            //{
+            //    Health -= enemy.Damage;
+            //    ApplyEnemyKnockback(other.transform.position, enemy.KnockbackStrength);
+            //}
         }
 
         private void ApplyEnemyKnockback(Vector3 position, float strength)
