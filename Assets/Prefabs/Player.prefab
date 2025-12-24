@@ -358,7 +358,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.5
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -395,6 +395,10 @@ MonoBehaviour:
   _movementSpeed: 10
   _knockbackDuration: 1
   _knockbackDamping: 5
+  _sprintModifier: 1.5
+  _jumpVelocity: 5
+  MaxSprintTimer: 5
+  SprintTimer: 0
   HitableLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -421,7 +425,7 @@ MonoBehaviour:
   _suctionAreaCurrent: {fileID: 9129088607664628421}
   _suctionAreaIncreaseMultiplier: 1
   _suckingParticles: {fileID: 3613917021258549103}
-  _shakeIntensity: 0
+  _shakeIntensity: 0.1
   _maxShootForce: 30
   _shootForceIncreaseMultiplier: 25
   _range: 200
@@ -431,7 +435,7 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 64
-  _collectionPoint: {fileID: 0}
+  _collectionPoint: {fileID: 3936485658817365875}
   IsCannonSucking: 0
   _gunTransform: {fileID: 7258545214832006359}
   AmmoCapacityText: {fileID: 4392381334619138082}

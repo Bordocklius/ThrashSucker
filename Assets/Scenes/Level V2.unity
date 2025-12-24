@@ -1015,7 +1015,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 65.599976, y: 437}
+  m_AnchoredPosition: {x: 65.59985, y: 437}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &112223594
@@ -1189,29 +1189,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2159321117130327285, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: _jumpVelocity
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2159321117130327285, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: MaxSprintTimer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2159321117130327285, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: _maxSprintTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2159321117130327285, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: _sprintModifier
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 2823872501055784961, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3901549014690675821, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: m_NotificationBehavior
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5397943504560829866, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1258,20 +1238,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2055092021}
     - target: {fileID: 6174315066799661069, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: _shakeIntensity
-      value: 0.1
+      propertyPath: _maxSuctionForce
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6174315066799661069, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: _collectionPoint
-      value: 
-      objectReference: {fileID: 184642656}
+      propertyPath: _minSuctionForce
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6174315066799661069, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
       propertyPath: _crosshairTransform
       value: 
       objectReference: {fileID: 1603062866}
-    - target: {fileID: 6253510717870392651, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-      propertyPath: m_StepOffset
-      value: 0.5
+    - target: {fileID: 6174315066799661069, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
+      propertyPath: _suctionIncreaseMultiplier
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1833,11 +1813,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
---- !u!1 &184642656 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3936485658817365875, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
-  m_PrefabInstance: {fileID: 138242336}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &206574460 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9161426358134238749, guid: b91f6346c1fecba4d8097baba87a9187, type: 3}

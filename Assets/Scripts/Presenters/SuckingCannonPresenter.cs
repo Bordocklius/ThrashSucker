@@ -27,6 +27,8 @@ namespace TrashSucker.Presenters
         [SerializeField]
         private float _maxSuctionForce;
         [SerializeField]
+        private float _minSuctionForce;
+        [SerializeField]
         private float _suctionIncreaseMultiplier = 1f;
         [SerializeField]
         private Transform _suctionAreaMax;
@@ -112,7 +114,7 @@ namespace TrashSucker.Presenters
                 
             }
 
-            if(_suctionForce > 0.01f || _shootForce >= 0.1f)
+            if(_suctionForce > _minSuctionForce || _shootForce >= 0.1f)
             {
                 ApplyGunShake();
             }
@@ -183,10 +185,11 @@ namespace TrashSucker.Presenters
         {
             IsCannonSucking = !IsCannonSucking;
             _suckingParticles.Play();
+            _suctionForce = _minSuctionForce;
             if (!IsCannonSucking) 
             {
                 _suctionAreaCurrent.position = _barrelPoint.position;
-                _suctionForce = 0f;
+                _suctionForce = _minSuctionForce;
                 _suckingParticles.Stop();
                 _suckingParticles.Clear();
             }
