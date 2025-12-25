@@ -106,7 +106,6 @@ namespace TrashSucker.Presenters
 
         private void HandleMovement()
         {
-            Debug.Log(SprintTimer);
             if (!_isSprinting && SprintTimer <= MaxSprintTimer && SprintTimer != MaxSprintTimer)
             {
                 SprintTimer += Time.deltaTime;
@@ -123,7 +122,6 @@ namespace TrashSucker.Presenters
 
             if (_isSprinting && SprintTimer >= 0f)
             {
-                Debug.Log("Sprinting");
                 movementspeed *= _sprintModifier;
                 SprintTimer -= Time.deltaTime;
             }

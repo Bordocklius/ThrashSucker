@@ -47,7 +47,8 @@ namespace TrashSucker.Models.Enemies
 
         public override void Update(float deltaTime)
         {
-            _movementFSM.Update(deltaTime);
+			if(Health >0) 
+				_movementFSM.Update(deltaTime);
         }
 
 		public virtual void OnEnemyShot(SuckableObject suckableObject)

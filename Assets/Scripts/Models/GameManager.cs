@@ -14,6 +14,8 @@ namespace TrashSucker.Models
 
         public List<GameObject> TrashObjects = new List<GameObject>();
 
+        public List<GameObject> Enemies;
+
         public GameManager()
         {
         }

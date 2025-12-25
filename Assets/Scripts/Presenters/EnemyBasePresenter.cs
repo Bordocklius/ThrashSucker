@@ -4,6 +4,7 @@ using System.ComponentModel;
 using TrashSucker.Models;
 using TrashSucker.Models.Enemies;
 using TrashSucker.Presenters;
+using TrashSucker.Singleton;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -99,6 +100,14 @@ namespace TrashSucker.Presenters
             _enemyMaterial = _meshRenderer.material;
         }
 
+        private void Start()
+        {
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity))
+            {
+                NavMeshAgent.Warp(hit.point);
+            }
+        }
 
         // Update is called once per frame
         protected override void Update()
@@ -140,6 +149,7 @@ namespace TrashSucker.Presenters
             {
                 yield return null;
             }
+            Singleton<GameManager>.Instance.Enemies.Remove(this.gameObject);
             Destroy(this.gameObject);
         }
 
