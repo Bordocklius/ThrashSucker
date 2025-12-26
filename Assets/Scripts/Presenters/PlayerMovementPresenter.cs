@@ -48,10 +48,12 @@ namespace TrashSucker.Presenters
             set
             {
                 if (_health == value)
-                    return;
+                    return;                
 
                 _health = value;
-
+                
+                if(_health > StartingHP)
+                    _health = StartingHP;
                 if (_health <= 0)
                     Debug.Log("ded");
             }

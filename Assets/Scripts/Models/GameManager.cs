@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TrashSucker.Presenters;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace TrashSucker.Models
 {
@@ -16,9 +17,31 @@ namespace TrashSucker.Models
 
         public List<GameObject> Enemies;
 
+        public int ObjectsToShredForHPResore;
+        public int HealthRestore;
+
+        private int _shreddedObjectsCount;
+        public int ShreddedObjectsCount
+        {
+            get { return _shreddedObjectsCount; }
+            set
+            {
+                if (_shreddedObjectsCount == value)
+                    return;
+
+                _shreddedObjectsCount = value;
+                OnPropertyChanged();
+                if (_shreddedObjectsCount <= 0)
+                {
+                    _shreddedObjectsCount = ObjectsToShredForHPResore;
+                }                
+            }
+        }
+
         public GameManager()
         {
         }
+
 
         public void AddThrashObject(GameObject obj)
         {
@@ -27,6 +50,11 @@ namespace TrashSucker.Models
                 TrashObjects.Add(obj);
                 TrashEvent?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        public void ObjectShredded()
+        {
+            ShreddedObjectsCount--;
         }
 
         public void RemoveThrashObject(GameObject obj)

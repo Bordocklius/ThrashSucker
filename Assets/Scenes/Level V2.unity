@@ -1889,7 +1889,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 207530932}
-  - component: {fileID: 207530931}
   - component: {fileID: 207530930}
   - component: {fileID: 207530933}
   m_Layer: 0
@@ -1912,26 +1911,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectiveText: {fileID: 1656997715}
---- !u!114 &207530931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 207530929}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 566befe6350ab18418a2f2e54593b079, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BallColors:
-  - {fileID: 2100000, guid: 67a87c0d1a219134d979edf58bac115f, type: 2}
-  - {fileID: 2100000, guid: ae6ceba370b5c0d42a908ac53fce419a, type: 2}
-  - {fileID: 2100000, guid: 4043519b865153047bd41c284a056b42, type: 2}
-  SpawnArea: {fileID: 0}
-  BallPrefab: {fileID: 308166681913950293, guid: b80f0bc516e23e94284b09128255ea28, type: 3}
-  BallQuantity: 10
-  spawnAreaSize: {x: 75, y: 1, z: 73}
+  _player: {fileID: 2005119633}
+  _objectsToShredForHPRestore: 10
+  _healthRestore: 1
 --- !u!4 &207530932
 Transform:
   m_ObjectHideFlags: 0
@@ -38452,6 +38434,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shredder (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8968249679499727803, guid: b2cc57a7e5124af41a05fefa1ca721c8, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 2005119633}
     - target: {fileID: 8970208967288729079, guid: b2cc57a7e5124af41a05fefa1ca721c8, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.8
@@ -40142,7 +40128,8 @@ MonoBehaviour:
   BoxSize: {x: 123.5, y: 118}
   SpawnOffset: {x: 0, y: 0, z: 0}
   _maxEnemiesAmount: 0
-  _spawnDelay: 10
+  _maxSpawnDelay: 20
+  _minSpawnDelay: 5
 --- !u!1 &2055092020
 GameObject:
   m_ObjectHideFlags: 0
@@ -40666,6 +40653,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shredder
       objectReference: {fileID: 0}
+    - target: {fileID: 8968249679499727803, guid: b2cc57a7e5124af41a05fefa1ca721c8, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 2005119633}
     - target: {fileID: 8970208967288729079, guid: b2cc57a7e5124af41a05fefa1ca721c8, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.8

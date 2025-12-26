@@ -9,6 +9,8 @@ using TrashSucker.Models.ShredderModels;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TrashSucker.Singleton;
+using TrashSucker.Models;
 
 namespace TrashSucker.Presenters
 {
@@ -20,6 +22,8 @@ namespace TrashSucker.Presenters
 
         [SerializeField]
         private TextMeshProUGUI _objText;
+        [SerializeField]
+        private TextMeshProUGUI _objCountText;
         [SerializeField]
         private GameObject _progressBarObj;
         [SerializeField]
@@ -44,7 +48,6 @@ namespace TrashSucker.Presenters
             }
         }
 
-
         protected override void Model_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             
@@ -62,7 +65,12 @@ namespace TrashSucker.Presenters
         private void Awake()
         {
             Model = new Shredder();
-            _startColor = _progressBarImage.color;
+            _startColor = _progressBarImage.color;            
+        }
+
+        private void Start()
+        {
+            ChangeObjectsText();
         }
 
         private IEnumerator ProcessObjects()
@@ -80,7 +88,8 @@ namespace TrashSucker.Presenters
                 }
                 
                 Model.ShredObject();
-                ChangeText();
+                Singleton<GameManager>.Instance.ObjectShredded();
+                ChangeObjectsText();
             }
 
             _processingRoutine = null;
@@ -91,7 +100,7 @@ namespace TrashSucker.Presenters
         public void AddObject(GameObject obj)
         {
             Model.AddObject(obj);
-            ChangeText();
+            ChangeObjectsText();
 
             if(_processingRoutine == null)
                 _processingRoutine = StartCoroutine(ProcessObjects());
@@ -99,13 +108,14 @@ namespace TrashSucker.Presenters
 
         protected virtual void Model_OnObjectShredded(object sender, ItemShreddedEventArgs e)
         {
-            ChangeText();
+            ChangeObjectsText();
             Destroy(e.Object);
         }
 
-        private void ChangeText()
+        private void ChangeObjectsText()
         {
             _objText.text = $"{Model.StoredObjects.Count} objects";
+            _objCountText.text = $"{Singleton<GameManager>.Instance.ShreddedObjectsCount} until healing";
         }
 
         private void OnProgressChanged()
