@@ -40136,7 +40136,7 @@ MonoBehaviour:
   Transform: {fileID: 2051777468}
   SpawnItems:
   - {fileID: 1227894814799509647, guid: b91f6346c1fecba4d8097baba87a9187, type: 3}
-  SpawnCount: 20
+  SpawnCount: 30
   SpawnRadius: 56.9
   Shape: 1
   BoxSize: {x: 123.5, y: 118}

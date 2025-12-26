@@ -11,9 +11,13 @@ namespace TrashSucker.Presenters
         [SerializeField]
         private int _maxEnemiesAmount;
         [SerializeField]
-        private float _spawnDelay;
+        private float _maxSpawnDelay;
+        [SerializeField]
+        private float _minSpawnDelay;
 
         private bool _isSpawning = false;
+
+        private int _currentEnemyCount => Singleton<GameManager>.Instance.Enemies.Count;
 
         private void Awake()
         {
@@ -31,7 +35,7 @@ namespace TrashSucker.Presenters
             if (Transform == null)
                 Transform = this.transform;
 
-            for (int i = 0; i < SpawnCount; i++)
+            for (int i = 0; i < SpawnCount / 2; i++)
             {
                 SpawnEnemy();
             }
@@ -39,7 +43,7 @@ namespace TrashSucker.Presenters
 
         private void Update()
         {
-            if (!_isSpawning && Singleton<GameManager>.Instance.Enemies.Count < _maxEnemiesAmount)
+            if (!_isSpawning && _currentEnemyCount < _maxEnemiesAmount)
             {
                 _isSpawning = true;
                 StartCoroutine(SpawnEnemiesOverTime());
@@ -48,13 +52,22 @@ namespace TrashSucker.Presenters
 
         private IEnumerator SpawnEnemiesOverTime()
         {
-            while(Singleton<GameManager>.Instance.Enemies.Count < SpawnCount)
+            while(_currentEnemyCount < SpawnCount)
             {
-                yield return new WaitForSeconds(_spawnDelay);
+                float delay = GetSpawnDelay();
+                yield return new WaitForSeconds(delay);
                 SpawnEnemy();
                 Debug.Log("Enemy spawned");
             }
             _isSpawning = false;
+        }
+
+        private float GetSpawnDelay()
+        {
+            float ratio = Mathf.Clamp01((float)_currentEnemyCount / _maxEnemiesAmount);
+            float delay = Mathf.Lerp(_minSpawnDelay, _maxSpawnDelay, ratio);
+
+            return Mathf.Clamp(delay, _minSpawnDelay, Mathf.Max(_minSpawnDelay, _maxSpawnDelay));
         }
 
         private void SpawnEnemy()
