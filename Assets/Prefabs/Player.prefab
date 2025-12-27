@@ -421,9 +421,9 @@ MonoBehaviour:
   AmmoList: []
   MaxAmmoCount: 5
   _barrelPoint: {fileID: 6175142742969637459}
-  _suctionRange: 2.5
+  _suctionRange: 3
   _maxSuctionForce: 30
-  _minSuctionForce: 10
+  _minSuctionForce: 15
   _suctionIncreaseMultiplier: 3
   _suctionAreaMax: {fileID: 7142718392690123363}
   _suctionAreaCurrent: {fileID: 9129088607664628421}
@@ -840,6 +840,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 1882b1136bfaee448a30e7ca0b465e62, type: 3}
     - target: {fileID: 2111965899492293020, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
+      propertyPath: _suckTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2111965899492293020, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
+      propertyPath: _transform
+      value: 
+      objectReference: {fileID: 317246099981433215}
+    - target: {fileID: 2111965899492293020, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
       propertyPath: _audioSource
       value: 
       objectReference: {fileID: 568691807512085168}
@@ -942,6 +950,11 @@ PrefabInstance:
       addedObject: {fileID: 7142718392690123363}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
+--- !u!4 &317246099981433215 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3307938895530648778, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}
+  m_PrefabInstance: {fileID: 2994679637630000565}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &2433434154688798373 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 597419896750424848, guid: 7beb47df2ce1ae745a1ca8fefb58b7c3, type: 3}

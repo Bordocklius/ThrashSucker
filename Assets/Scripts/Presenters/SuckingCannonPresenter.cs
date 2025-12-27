@@ -17,6 +17,9 @@ namespace TrashSucker.Presenters
         public int MaxAmmoCount;
         private GameObject _previousAmmoObject;
 
+        // Reservations to avoid race between multiple concurrent sucking coroutines
+        private readonly HashSet<GameObject> _reservedAmmo = new HashSet<GameObject>();
+
         [Space(10)]
         [Header("Suction parameters")]
         [SerializeField]
@@ -320,6 +323,59 @@ namespace TrashSucker.Presenters
             HandleCurrentAmmoObject();
         }
 
+        /// <summary>
+        /// Try to reserve an ammo slot for an object that is about to be sucked.
+        /// Returns true when reservation succeeded and the caller can proceed with sucking coroutine.
+        /// </summary>
+        public bool TryReserveAmmoSlot(GameObject obj)
+        {
+            if (obj == null)
+                return false;
+
+            // Already in list or reserved -> cannot reserve
+            if (AmmoList.Contains(obj) || _reservedAmmo.Contains(obj))
+                return false;
+
+            // If current real ammo + reserved slots already fill capacity, reject
+            int totalTaken = AmmoList.Count + _reservedAmmo.Count;
+            if (totalTaken >= MaxAmmoCount)
+                return false;
+
+            _reservedAmmo.Add(obj);
+            UpdateCapacityText();
+            return true;
+        }
+
+        /// <summary>
+        /// Confirm a previously reserved object and move it into the actual ammo list.
+        /// </summary>
+        public void ConfirmReservedAmmo(GameObject obj)
+        {
+            if (obj == null)
+                return;
+
+            if (_reservedAmmo.Remove(obj))
+            {
+                AmmoList.Add(obj);
+                HandleCurrentAmmoObject();
+            }
+            UpdateCapacityText();
+        }
+
+        /// <summary>
+        /// Release a reservation if the sucking attempt failed or was cancelled.
+        /// </summary>
+        public void ReleaseReservedAmmo(GameObject obj)
+        {
+            if (obj == null)
+                return;
+
+            if (_reservedAmmo.Remove(obj))
+            {
+                UpdateCapacityText();
+            }
+        }
+
         private void HandleCurrentAmmoObject()
         {
             if (AmmoList.Count > 0)
@@ -337,7 +393,9 @@ namespace TrashSucker.Presenters
 
         public void UpdateCapacityText()
         {
-            AmmoCapacityText.text = $"{AmmoList.Count} / {MaxAmmoCount}";
+            // Show reserved slots as part of the "taken" count to reflect immediate reservations
+            int taken = AmmoList.Count + _reservedAmmo.Count;
+            AmmoCapacityText.text = $"{taken} / {MaxAmmoCount}";
         }
 
         private void UpdateShootForceText()

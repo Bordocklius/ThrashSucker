@@ -98,8 +98,6 @@ namespace TrashSucker.Presenters
             Destroy(this.gameObject);
         }
 
-
-
         private void OnTTLExpired(object sender, EventArgs e)
         {
             Rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
