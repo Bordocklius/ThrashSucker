@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using TrashSucker.Presenters;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace TrashSucker.Models
 {
