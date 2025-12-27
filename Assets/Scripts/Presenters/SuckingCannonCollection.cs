@@ -81,24 +81,17 @@ namespace TrashSucker.Presenters
             _isSucking = true;
             Transform objTransform = obj.transform;
             Vector3 startPosition = objTransform.position;
+            Vector3 startScale = objTransform.localScale;
 
             float t = 0f;
             while (t < 1f)
             {
                 t += Time.deltaTime / _suckTime;
                 objTransform.position = Vector3.Lerp(startPosition, _transform.position, t);
-                yield return null;
-            }
-            objTransform.position = _transform.position;
-
-            Vector3 startScale = objTransform.localScale;
-            t = 0f;
-            while (t < 1f)
-            {
-                t += Time.deltaTime / _suckTime;
                 objTransform.localScale = Vector3.Lerp(startScale, _scaleTo, t);
                 yield return null;
             }
+            objTransform.position = _transform.position;
             objTransform.localScale = _scaleTo;
 
             obj.SetActive(false);
