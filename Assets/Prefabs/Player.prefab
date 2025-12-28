@@ -422,8 +422,8 @@ MonoBehaviour:
   MaxAmmoCount: 5
   _barrelPoint: {fileID: 6175142742969637459}
   _suctionRange: 3
-  _maxSuctionForce: 30
-  _minSuctionForce: 15
+  _maxSuctionForce: 25
+  _minSuctionForce: 10
   _suctionIncreaseMultiplier: 3
   _suctionAreaMax: {fileID: 7142718392690123363}
   _suctionAreaCurrent: {fileID: 9129088607664628421}
