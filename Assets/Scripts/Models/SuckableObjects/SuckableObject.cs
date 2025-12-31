@@ -64,7 +64,6 @@ namespace TrashSucker.Models
                 if(_shotTimer >= _shotLifetime)
                 {
                     IsShot = false;
-                    ObjectHealth--;
                     TTLExpired?.Invoke(this, EventArgs.Empty);
                 }
             }

@@ -12,7 +12,7 @@ namespace TrashSucker.Presenters
     public class SuckableObjectPresenter : PresenterBaseClass<SuckableObject>
     {
         public Rigidbody Rb;
-        public float TTL;
+        public float TTL = 2f;
         public List<GameObject> SubObjects = new List<GameObject>();
         public int ObjectHealth;
         public LayerMask HitableLayer;

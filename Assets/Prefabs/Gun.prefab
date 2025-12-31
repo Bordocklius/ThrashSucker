@@ -71,6 +71,10 @@ MonoBehaviour:
     m_Bits: 64
   _canon: {fileID: 0}
   _audioSource: {fileID: 0}
+  _suckClip: {fileID: 0}
+  _suckTime: 0
+  _scaleTo: {x: 0.1, y: 0.1, z: 0.1}
+  _transform: {fileID: 0}
 --- !u!1 &2282395417118601671
 GameObject:
   m_ObjectHideFlags: 0
@@ -9867,7 +9871,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: bb3a33cee2e1250478505826cc330e4d, type: 3}
-      insertIndex: 0
+      insertIndex: -1
       addedObject: {fileID: 4110969487522925739}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: bb3a33cee2e1250478505826cc330e4d, type: 3}
       insertIndex: -1

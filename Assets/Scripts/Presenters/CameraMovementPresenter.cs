@@ -75,6 +75,7 @@ namespace TrashSucker.Presenters
             UpdateHeadBob();
         }
 
+        // Thank you copilot
         private void UpdateHeadBob()
         {
             if (_cameraTransform == null)

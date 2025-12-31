@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace TrashSucker.Presenters
 {
@@ -52,7 +52,22 @@ namespace TrashSucker.Presenters
         private float _maxShootForce;
         [SerializeField]
         private float _shootForceIncreaseMultiplier;
+
         private float _shootForce;
+        private float ShootForce
+        {
+            get { return _shootForce; }
+            set
+            {
+                if (_shootForce == value)
+                    return;
+
+                _shootForce = value;
+                UpdateShootForceText();
+            }
+        }
+
+        private float _shootForceProgress => ShootForce / _maxShootForce;  
 
         [SerializeField]
         private float _range;
@@ -79,6 +94,17 @@ namespace TrashSucker.Presenters
         [Header("UI elements")]
         public TextMeshProUGUI AmmoCapacityText;
         public TextMeshProUGUI ShootForceText;
+        public Image ShootForceBar;
+        private Color _originalShootForceBarColor;
+        public Color ShootForceLerpColor;
+
+        public List<Image> AmmoCapacityImages = new List<Image>();
+        [SerializeField]
+        private Color _filledColor;
+        [SerializeField]
+        private Color _emptyColor;
+        [SerializeField]
+        private Color _reservedColor;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -86,6 +112,7 @@ namespace TrashSucker.Presenters
             UpdateShootForceText();
             UpdateCapacityText();
             _originalGunRotation = _gunTransform.localRotation;
+            _originalShootForceBarColor = ShootForceBar.color;
         }
 
         // Update is called once per frame
@@ -117,7 +144,7 @@ namespace TrashSucker.Presenters
                 
             }
 
-            if(_suctionForce > _minSuctionForce || _shootForce >= 0.1f)
+            if(_suctionForce > _minSuctionForce || ShootForce >= 0.1f)
             {
                 ApplyGunShake();
             }
@@ -200,20 +227,19 @@ namespace TrashSucker.Presenters
 
         private void BuildUpShootForce()
         {
-            if (_shootForce == _maxShootForce)
+            if (ShootForce == _maxShootForce)
                 return;
 
-            if(_shootForce <= _maxShootForce)
+            if(ShootForce <= _maxShootForce)
             {
-                _shootForce += Time.deltaTime * _shootForceIncreaseMultiplier;
+                ShootForce += Time.deltaTime * _shootForceIncreaseMultiplier;
             }
-            else if(_shootForce >= _maxShootForce)
+            else if(ShootForce >= _maxShootForce)
             {
-                _shootForce = _maxShootForce;
+                ShootForce = _maxShootForce;
             }
 
             ApplyGunShake();
-            UpdateShootForceText();
         }
 
         private void ApplyGunShake()
@@ -298,14 +324,13 @@ namespace TrashSucker.Presenters
                 // Ensure obj doesnt have leftover velocity from somewhere, set collisiondetection and shoot
                 rb.linearVelocity = Vector3.zero;
                 rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-                rb.AddForce(direction * _shootForce, ForceMode.Impulse);
+                rb.AddForce(direction * ShootForce, ForceMode.Impulse);
                 UpdateAmmoList(false, obj);
                 //AmmoList.Remove(obj);
             }
 
             UpdateCapacityText();
-            UpdateShootForceText();
-            _shootForce = 0f;
+            ShootForce = 0f;
             _isCannonShooting = false;
             CannonShot?.Invoke(this, EventArgs.Empty);
         }
@@ -394,13 +419,44 @@ namespace TrashSucker.Presenters
         public void UpdateCapacityText()
         {
             // Show reserved slots as part of the "taken" count to reflect immediate reservations
-            int taken = AmmoList.Count + _reservedAmmo.Count;
-            AmmoCapacityText.text = $"{taken} / {MaxAmmoCount}";
+            int realCount = AmmoList.Count;
+            int reservedCount = _reservedAmmo.Count;
+            int taken = realCount + reservedCount;
+
+            if(AmmoCapacityText != null && AmmoCapacityText.enabled)
+                AmmoCapacityText.text = $"{taken} / {MaxAmmoCount}";
+
+            for(int i = 0; i < AmmoCapacityImages.Count; i++)
+            {
+                Image img = AmmoCapacityImages[i];
+                if(i < MaxAmmoCount)
+                {
+                    if (!img.gameObject.activeSelf)
+                        img.gameObject.SetActive(true);
+
+                    // Decide color: filled (owned), reserved, or empty
+                    if (i < realCount)
+                        img.color = _filledColor;
+                    else if (i < realCount + reservedCount)
+                        img.color = _reservedColor;
+                    else
+                        img.color = _emptyColor;
+                }
+                else
+                {
+                    if (img.gameObject.activeSelf)
+                        img.gameObject.SetActive(false);
+                }
+            }            
         }
 
         private void UpdateShootForceText()
         {
-            ShootForceText.text = $"Shootforce: {_shootForce}/{_maxShootForce}";
+            if(ShootForceText != null && ShootForceText.enabled)
+                ShootForceText.text = $"Shootforce: {ShootForce}/{_maxShootForce}";
+
+            ShootForceBar.fillAmount = _shootForceProgress;
+            //ShootForceBar.color = Color.Lerp(_originalShootForceBarColor, ShootForceLerpColor, _shootForceProgress);
         }
 
         private void OnDrawGizmos()
