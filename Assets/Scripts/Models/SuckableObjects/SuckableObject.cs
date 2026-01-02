@@ -77,7 +77,8 @@ namespace TrashSucker.Models
     {
         None,
         Wood,
-        Metal
+        Metal,
+        Plastic
     }
 
 }

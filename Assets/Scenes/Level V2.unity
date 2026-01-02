@@ -2103,8 +2103,8 @@ MonoBehaviour:
   Transform: {fileID: 207530932}
   SpawnItems:
   - {fileID: 5011314346591361408, guid: 424ab455e5ddd9e4c8ebdb163ac4a196, type: 3}
-  - {fileID: 308166681913950293, guid: b80f0bc516e23e94284b09128255ea28, type: 3}
   - {fileID: 7254630946163198162, guid: 699339a7131c22b409db6130272e1338, type: 3}
+  - {fileID: 7254630946163198162, guid: 4d6fa0ef73da70649a3b664c14b6cf24, type: 3}
   SpawnCount: 200
   SpawnRadius: 56.9
   Shape: 1
@@ -39117,6 +39117,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1825573685
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2622649200276775436, guid: 4d6fa0ef73da70649a3b664c14b6cf24, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.0883017
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622649200276775436, guid: 4d6fa0ef73da70649a3b664c14b6cf24, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.1481695
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622649200276775436, guid: 4d6fa0ef73da70649a3b664c14b6cf24, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -66.5971
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622649200276775436, guid: 4d6fa0ef73da70649a3b664c14b6cf24, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622649200276775436, guid: 4d6fa0ef73da70649a3b664c14b6cf24, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622649200276775436, guid: 4d6fa0ef73da70649a3b664c14b6cf24, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622649200276775436, guid: 4d6fa0ef73da70649a3b664c14b6cf24, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622649200276775436, guid: 4d6fa0ef73da70649a3b664c14b6cf24, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622649200276775436, guid: 4d6fa0ef73da70649a3b664c14b6cf24, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622649200276775436, guid: 4d6fa0ef73da70649a3b664c14b6cf24, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7254630946163198162, guid: 4d6fa0ef73da70649a3b664c14b6cf24, type: 3}
+      propertyPath: m_Name
+      value: Bottle
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4d6fa0ef73da70649a3b664c14b6cf24, type: 3}
 --- !u!43 &1830551299
 Mesh:
   m_ObjectHideFlags: 0
@@ -40595,6 +40652,8 @@ MonoBehaviour:
   Transform: {fileID: 2051777468}
   SpawnItems:
   - {fileID: 1227894814799509647, guid: b91f6346c1fecba4d8097baba87a9187, type: 3}
+  - {fileID: 1227894814799509647, guid: 2fc0285a8932b154cac8bdf1b872fc9b, type: 3}
+  - {fileID: 1227894814799509647, guid: 327c774430f5ed2469215ab5b09307e3, type: 3}
   SpawnCount: 30
   SpawnRadius: 56.9
   Shape: 1
@@ -41267,3 +41326,4 @@ SceneRoots:
   - {fileID: 1904485021}
   - {fileID: 1968387319}
   - {fileID: 108648113151617018}
+  - {fileID: 1825573685}

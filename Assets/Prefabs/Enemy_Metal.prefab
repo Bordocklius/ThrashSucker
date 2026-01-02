@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f0b23c3a265ae554b8b83565b118fef9, type: 2}
+  - {fileID: 2100000, guid: 2085ac5ce804e8645b89e630e524ed02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 4414662128320079721}
   - component: {fileID: 3587578153834597655}
   m_Layer: 7
-  m_Name: Enemy
+  m_Name: Enemy_Metal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,18 +212,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transform: {fileID: 9161426358134238749}
   _playerTransform: {fileID: 0}
-  _movementSpeed: 6
+  _movementSpeed: 4
   _randomRadius: 9
   _detectionEnterRadius: 15
   _detectionExitRadius: 20
   _minWanderDistance: 2
   _wanderTime: 5
   NavMeshAgent: {fileID: 4414662128320079721}
-  StartingHP: 3
-  Damage: 1
-  KnockbackStrength: 15
-  EnemyWeaknesses: 01000000
-  EnemyResistances: 02000000
+  StartingHP: 4
+  Damage: 2
+  KnockbackStrength: 25
+  EnemyWeaknesses: 02000000
+  EnemyResistances: 01000000
   _meshRenderer: {fileID: 150210589724773642}
   _flashMaterial: {fileID: 2100000, guid: 4043519b865153047bd41c284a056b42, type: 2}
   _flashTime: 0.8
