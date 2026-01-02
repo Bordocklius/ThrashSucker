@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rb: {fileID: 7388914635411155517}
-  TTL: 0
+  TTL: 3
   SubObjects: []
   ObjectHealth: 1
   HitableLayer:

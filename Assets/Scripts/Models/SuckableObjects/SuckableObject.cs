@@ -69,6 +69,8 @@ namespace TrashSucker.Models
             }
         }
 
+        public void ResetTTL() => _shotTimer = 0;
+
     }
 
     public enum MaterialType

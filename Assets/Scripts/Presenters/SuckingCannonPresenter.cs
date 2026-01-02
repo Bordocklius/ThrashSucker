@@ -312,6 +312,7 @@ namespace TrashSucker.Presenters
                 {
                     skObject.Model.IsShot = true;
                     skObject.Rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                    skObject.Model.ResetTTL();
                 }
 
                 // Get object slightly out of the way of barrel
