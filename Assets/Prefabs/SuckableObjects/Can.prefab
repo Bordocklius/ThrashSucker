@@ -4939,7 +4939,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   MaterialType: 2
-  Damage: 2
+  Damage: 1
   _layermaskActivateTimer: 0
   _objectSpread: 0.2
   _deathParticles: {fileID: 4162202587491415916}
