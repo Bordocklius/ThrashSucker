@@ -67,6 +67,11 @@ namespace TrashSucker.Presenters
             }
         }
 
+        [SerializeField]
+        private AudioClip _shootEffect;
+
+        [SerializeField]
+        private AudioSource _audioSource;
         private float _shootForceProgress => ShootForce / _maxShootForce;  
 
         [SerializeField]
@@ -327,6 +332,7 @@ namespace TrashSucker.Presenters
                 rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
                 rb.AddForce(direction * ShootForce, ForceMode.Impulse);
                 UpdateAmmoList(false, obj);
+                _audioSource.PlayOneShot(_shootEffect);
                 //AmmoList.Remove(obj);
             }
 

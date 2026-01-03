@@ -7,6 +7,7 @@ using TrashSucker.Presenters;
 using TrashSucker.Singleton;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 namespace TrashSucker.Presenters
 {
@@ -44,6 +45,8 @@ namespace TrashSucker.Presenters
         public List<MaterialType> EnemyWeaknesses;
         public List<MaterialType> EnemyResistances;
 
+        private float _healthProgress => Model.Health / StartingHP;
+
         [Space(10)]
         [Header("Visual")]
         [SerializeField]
@@ -59,6 +62,8 @@ namespace TrashSucker.Presenters
         private AudioSource _audioSource;
         [SerializeField]
         private AudioClip _damageClip;
+        [SerializeField]
+        private Image _healthBar;
 
         private Coroutine _flashDamage;
 
@@ -66,6 +71,7 @@ namespace TrashSucker.Presenters
         {
             if (e.PropertyName.Equals(nameof(Enemybase.Health)))
             {
+                UpdateHealthBar();
                 if (Model.Health <= 0)
                     Model_OnEnemyDeath();
             }
@@ -107,6 +113,7 @@ namespace TrashSucker.Presenters
             {
                 NavMeshAgent.Warp(hit.point);
             }
+            UpdateHealthBar();
         }
 
         // Update is called once per frame
@@ -170,6 +177,7 @@ namespace TrashSucker.Presenters
             Gizmos.DrawLine(transform.position, NavMeshAgent.destination);
         }
 
+        private void UpdateHealthBar() => _healthBar.fillAmount = _healthProgress;
 
         #region IEnemyMovement implementation
         // Request positions
