@@ -23,6 +23,7 @@ namespace TrashSucker.Models.Enemies
         public List<MaterialType> EnemyResistances;
 
 		public float Damage = 2;
+		public bool IsActive;
 
 		// Navmesh stuff
 		public float RandomRadius = 2f;
@@ -46,7 +47,9 @@ namespace TrashSucker.Models.Enemies
         }
 
         public override void Update(float deltaTime)
-        {
+        {			
+			if(!IsActive)
+				return;
 			if(Health >0) 
 				_movementFSM.Update(deltaTime);
         }

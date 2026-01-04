@@ -211,6 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11516b9f2c43b5647864d35007528f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsActive: 1
   _transform: {fileID: 9161426358134238749}
   _playerTransform: {fileID: 0}
   _movementSpeed: 8

@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 namespace TrashSucker.Presenters
@@ -16,6 +17,11 @@ namespace TrashSucker.Presenters
         [SerializeField]
         private float _popUpDuration;
 
+        [SerializeField]
+        private TextMeshProUGUI _textField;
+
+        public bool HasEnteredTrigger;
+
         private void Awake()
         {
             _rectTransform = this.transform as RectTransform;
@@ -24,10 +30,10 @@ namespace TrashSucker.Presenters
 
         private void Start()
         {
-            StartCoroutine(AnimatePopup());
+            //StartCoroutine(AnimatePopupOverTime(_popUpDuration));
         }
 
-        private IEnumerator AnimatePopup()
+        public IEnumerator AnimatePopupOverTime()
         {
             Vector3 startPosition = _from;
             Vector3 endPosition = _to.position;
@@ -54,8 +60,45 @@ namespace TrashSucker.Presenters
                 yield return null;
             }
             _rectTransform.position = _from;
+        }
 
-            this.gameObject.SetActive(false);
+        public IEnumerator AnimatePopup()
+        {
+            Vector3 startPosition = _from;
+            Vector3 endPosition = _to.position;
+
+            float t = 0f;
+            while (t < 1f)
+            {
+                t += Time.deltaTime / _lerpSpeed;
+                _rectTransform.position = Vector3.Lerp(startPosition, endPosition, t);
+                yield return null;
+            }
+            _rectTransform.position = _to.position;
+
+            yield return new WaitUntil(() => !HasEnteredTrigger);
+
+            //while(HasEnteredTrigger)
+            //{
+            //    yield return new Wait;
+            //}
+
+            startPosition = _to.position;
+            endPosition = _from;
+
+            t = 0f;
+            while (t < 1f)
+            {
+                t += Time.deltaTime / _lerpSpeed;
+                _rectTransform.position = Vector3.Lerp(startPosition, endPosition, t);
+                yield return null;
+            }
+            _rectTransform.position = _from;
+        }
+
+        public void SetText(string text)
+        {
+            _textField.text = text;
         }
     }
 }

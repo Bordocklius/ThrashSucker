@@ -13,7 +13,9 @@ namespace TrashSucker.Presenters
 {
     [SelectionBase]
     public class EnemyBasePresenter : PresenterBaseClass<Enemybase>, IEnemyMovement
-    {      
+    {
+        public bool IsActive;
+
         [Header("Movement")]
         [SerializeField]
         private Transform _transform;
@@ -108,12 +110,18 @@ namespace TrashSucker.Presenters
 
         private void Start()
         {
+            if(!IsActive)
+            {
+                Model.IsActive = false;
+            }
+            else
+                Model.IsActive = true;
+            UpdateHealthBar();
             RaycastHit hit;
             if(Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity))
             {
                 NavMeshAgent.Warp(hit.point);
             }
-            UpdateHealthBar();
         }
 
         // Update is called once per frame
