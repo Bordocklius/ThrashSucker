@@ -9,11 +9,14 @@ using TrashSucker.Models;
 using TrashSucker.Models.Enemies;
 using TrashSucker.Singleton;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TrashSucker.Presenters
 {
     public class GameManagerPresenter: PresenterBaseClass<GameManager>
     {
+        public static bool IsPaused;
+
         [SerializeField]
         private TextMeshProUGUI _objectiveText;
         [SerializeField]
@@ -50,6 +53,14 @@ namespace TrashSucker.Presenters
             SetObjectiveText(Model.TrashObjects.Count.ToString());
         }
 
+        protected override void Update()
+        {
+            if(_player.Health <= 0)
+            {                
+                SceneLoader.LoadSceneByName("StartScreen");
+            }
+        }
+
         protected void Model_OnTrashEvent(object sender, EventArgs e)
         {
             SetObjectiveText(Model.TrashObjects.Count.ToString());
@@ -67,5 +78,6 @@ namespace TrashSucker.Presenters
                 _player.Health += Model.HealthRestore;
             }
         }
+        
     }
 }
