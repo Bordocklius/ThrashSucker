@@ -550,7 +550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 568691807512085168}
-  _damageClip: {fileID: 8300000, guid: 3e30d17dc454e6a4d9494758bbe0542b, type: 3}
+  _damageClip: {fileID: 8300000, guid: e5ce3473e67d7af4898040013776dd5f, type: 3}
   _characterController: {fileID: 6253510717870392651}
   _mainCamera: {fileID: 227786941751511151}
   _movementSpeed: 10
@@ -590,6 +590,8 @@ MonoBehaviour:
   _shakeIntensity: 0.1
   _maxShootForce: 30
   _shootForceIncreaseMultiplier: 25
+  _shootEffect: {fileID: 8300000, guid: 5b6247f9118033745ac18269331d52f5, type: 3}
+  _audioSource: {fileID: 568691807512085168}
   _range: 200
   _mainCamera: {fileID: 227786941751511151}
   _crosshairTransform: {fileID: 0}

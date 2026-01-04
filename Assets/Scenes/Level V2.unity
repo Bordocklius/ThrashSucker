@@ -1320,6 +1320,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2159321117130327285, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
+      propertyPath: _damageClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e5ce3473e67d7af4898040013776dd5f, type: 3}
     - target: {fileID: 2468076420727471814, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
