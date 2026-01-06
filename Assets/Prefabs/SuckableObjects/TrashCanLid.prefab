@@ -100,12 +100,12 @@ MonoBehaviour:
   Rb: {fileID: 1784258674627402363}
   TTL: 3
   SubObjects: []
-  ObjectHealth: 1
+  ObjectHealth: 2
   HitableLayer:
     serializedVersion: 2
     m_Bits: 128
   MaterialType: 2
-  Damage: 1
+  Damage: 2
   _layermaskActivateTimer: 0
   _objectSpread: 0.2
   _deathParticles: {fileID: 57973927173086093}

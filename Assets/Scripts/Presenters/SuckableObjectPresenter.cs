@@ -108,6 +108,7 @@ namespace TrashSucker.Presenters
             if (collision != null && ((1 << collision.gameObject.layer) & HitableLayer) != 0 && Model.IsShot)
             {
                 Model.ObjectHealth--;
+                Model.IsShot = false;
                 if(Model.ObjectHealth <= 0)
                 {
                     // Save surface normal of contact point to throw new spawned objects away from contact point

@@ -101,13 +101,13 @@ MonoBehaviour:
   TTL: 3
   SubObjects:
   - {fileID: 1970384960139977523, guid: c432dfdbb3860c347982a607448cdb70, type: 3}
-  ObjectHealth: 1
+  ObjectHealth: 2
   HitableLayer:
     serializedVersion: 2
     m_Bits: 128
   MaterialType: 2
   Damage: 2
-  _layermaskActivateTimer: 0
+  _layermaskActivateTimer: 3
   _objectSpread: 0.2
   _deathParticles: {fileID: 57973927173086093}
 --- !u!1 &6660566595095825851
