@@ -41,8 +41,15 @@ namespace TrashSucker.Models
         {
         }
 
+        public override void Update(float deltaTime)
+        {
+            if(TrashObjects.Count <= 0)
+            {
+                SceneLoader.LoadSceneByName("EndScreen");
+            }
+        }
 
-        public void AddThrashObject(GameObject obj)
+        public void AddTrashObject(GameObject obj)
         {
             if(obj.TryGetComponent<SuckableObjectPresenter>(out SuckableObjectPresenter thrashObj))
             {
@@ -56,7 +63,7 @@ namespace TrashSucker.Models
             ShreddedObjectsCount--;
         }
 
-        public void RemoveThrashObject(GameObject obj)
+        public void RemoveTrashObject(GameObject obj)
         {
             TrashObjects.Remove(obj);
             TrashEvent?.Invoke(this, EventArgs.Empty);

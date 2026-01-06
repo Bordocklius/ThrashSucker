@@ -53,7 +53,7 @@ namespace TrashSucker.Presenters
         {
             Model = new SuckableObject(ObjectHealth ,TTL, Damage, MaterialType);
             Rb = GetComponent<Rigidbody>();
-            Singleton<GameManager>.Instance.AddThrashObject(this.gameObject);
+            Singleton<GameManager>.Instance.AddTrashObject(this.gameObject);
         }
 
         private void OnEnable()
@@ -125,7 +125,7 @@ namespace TrashSucker.Presenters
 
         private void OnDestroy()
         {
-            Singleton<GameManager>.Instance.RemoveThrashObject(this.gameObject);
+            Singleton<GameManager>.Instance.RemoveTrashObject(this.gameObject);
         }
 
 
