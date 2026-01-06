@@ -5624,6 +5624,7 @@ MonoBehaviour:
   - {fileID: 5011314346591361408, guid: 424ab455e5ddd9e4c8ebdb163ac4a196, type: 3}
   - {fileID: 7254630946163198162, guid: 699339a7131c22b409db6130272e1338, type: 3}
   - {fileID: 7254630946163198162, guid: 4d6fa0ef73da70649a3b664c14b6cf24, type: 3}
+  - {fileID: 1970384960139977523, guid: f791456888cfa8d478301a9194d065d3, type: 3}
   SpawnCount: 200
   SpawnRadius: 56.9
   Shape: 1
