@@ -55,6 +55,7 @@ namespace TrashSucker.Presenters
 
         protected override void Update()
         {
+            base.Update();
             if(_player.Health <= 0)
             {                
                 SceneLoader.LoadSceneByName("StartScreen");
