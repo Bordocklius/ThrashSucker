@@ -168,7 +168,7 @@ namespace TrashSucker.Presenters
         }        
 
         private void ActivateCannonSuction()
-        {
+        {       
             // Progressively increase suction power
             if (_suctionForce < _maxSuctionForce)
                 _suctionForce += Time.deltaTime * _suctionIncreaseMultiplier;
@@ -228,7 +228,7 @@ namespace TrashSucker.Presenters
         }
 
         private void OnActivateSuck(InputValue inputValue)
-        {
+        {           
             IsCannonSucking = !IsCannonSucking;
             _suckingParticles.Play();
             _suctionForce = _minSuctionForce;
@@ -270,7 +270,7 @@ namespace TrashSucker.Presenters
 
         private void OnCannonShoot(InputValue inputValue)
         {
-            if (AmmoList.Count == 0)
+            if (AmmoList.Count == 0 || IsCannonSucking)
                 return;
 
             if (!_isShotBuildingUp && !_isCannonShooting)
