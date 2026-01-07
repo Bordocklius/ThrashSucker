@@ -1734,6 +1734,10 @@ MonoBehaviour:
   _player: {fileID: 2005119633}
   _objectsToShredForHPRestore: 10
   _healthRestore: 2
+  _shredders:
+  - {fileID: 1541379920}
+  - {fileID: 1806732164}
+  - {fileID: 1400046700}
 --- !u!4 &207530932
 Transform:
   m_ObjectHideFlags: 0
@@ -35990,6 +35994,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 579190610}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1400046700 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8968249679499727803, guid: b2cc57a7e5124af41a05fefa1ca721c8, type: 3}
+  m_PrefabInstance: {fileID: 521527263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c7f79e786b61e4aa4dbffc0a3b846c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1406938015
 GameObject:
   m_ObjectHideFlags: 0
@@ -37770,6 +37785,17 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &1541379920 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8968249679499727803, guid: b2cc57a7e5124af41a05fefa1ca721c8, type: 3}
+  m_PrefabInstance: {fileID: 3688053552892871452}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c7f79e786b61e4aa4dbffc0a3b846c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1545680524
 GameObject:
   m_ObjectHideFlags: 0
@@ -39640,6 +39666,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8970208967288729079, guid: b2cc57a7e5124af41a05fefa1ca721c8, type: 3}
   m_PrefabInstance: {fileID: 1806732161}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1806732164 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8968249679499727803, guid: b2cc57a7e5124af41a05fefa1ca721c8, type: 3}
+  m_PrefabInstance: {fileID: 1806732161}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c7f79e786b61e4aa4dbffc0a3b846c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1814572794
 GameObject:
   m_ObjectHideFlags: 0
@@ -41641,7 +41678,7 @@ MonoBehaviour:
   SpawnOffset: {x: 0, y: 0, z: 0}
   _maxEnemiesAmount: 30
   _maxSpawnDelay: 20
-  _minSpawnDelay: 5
+  _minSpawnDelay: 3
 --- !u!1 &2055092020
 GameObject:
   m_ObjectHideFlags: 0

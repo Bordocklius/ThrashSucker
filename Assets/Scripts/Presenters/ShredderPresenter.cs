@@ -34,17 +34,21 @@ namespace TrashSucker.Presenters
         [SerializeField]
         private Color _lerpColor;
 
+        [Space(10)]
+        [Header("Audio")]
         [SerializeField]
         private AudioSource _audioSource;
-
         [SerializeField]
         private AudioClip _damageClip;
 
+        [Space(10)]
+        [Header("Damage pulse")]
         [SerializeField]
         private float _damageRange;
-
         [SerializeField]
         private float _damage;
+        [SerializeField]
+        private ParticleSystem _pulseParticleSystem;
 
         private Color _startColor;
 
@@ -122,7 +126,7 @@ namespace TrashSucker.Presenters
         protected virtual void Model_OnObjectShredded(object sender, ItemShreddedEventArgs e)
         {
             ChangeObjectsText();
-            DamagePulse(e.Object);
+            //DamagePulse();
             Destroy(e.Object);
         }
 
@@ -132,7 +136,7 @@ namespace TrashSucker.Presenters
             _objCountText.text = $"{Singleton<GameManager>.Instance.ShreddedObjectsCount} until healing";
         }
 
-        private void DamagePulse(GameObject obj)
+        public void DamagePulse()
         {
             bool didDamage = false;
             Collider[] objects = Physics.OverlapSphere(this.transform.position, _damageRange, DamagableLayer);
@@ -144,8 +148,12 @@ namespace TrashSucker.Presenters
                     didDamage = true;
                 }
             }
+
             if (didDamage)
+            {
                 _audioSource.PlayOneShot(_damageClip);
+                _pulseParticleSystem.Play();
+            }
         }
 
         private void OnProgressChanged()

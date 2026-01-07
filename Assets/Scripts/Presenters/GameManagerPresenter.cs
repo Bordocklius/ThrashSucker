@@ -25,6 +25,8 @@ namespace TrashSucker.Presenters
         private int _objectsToShredForHPRestore;
         [SerializeField]
         private int _healthRestore;
+        [SerializeField]
+        private ShredderPresenter[] _shredders;
 
         protected override void ModelSetInitialisation(GameManager previousModel)
         {
@@ -77,6 +79,10 @@ namespace TrashSucker.Presenters
             if(Model.ShreddedObjectsCount <= 0)
             {
                 _player.Health += Model.HealthRestore;
+                foreach(ShredderPresenter shredder in _shredders)
+                {
+                    shredder.DamagePulse();
+                }
             }
         }
         
