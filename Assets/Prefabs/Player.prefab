@@ -414,7 +414,7 @@ Transform:
   m_GameObject: {fileID: 2420956949133028543}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.47000003, z: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -468,7 +468,7 @@ GameObject:
   - component: {fileID: 568691807512085168}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -590,6 +590,7 @@ MonoBehaviour:
   _sprintModifier: 1.5
   _jumpVelocity: 5
   MaxSprintTimer: 5
+  _knockBackPos: {fileID: 3639563313793464533}
   SprintTimer: 0
   HitableLayer:
     serializedVersion: 2
@@ -633,7 +634,7 @@ MonoBehaviour:
   _collectionPoint: {fileID: 3936485658817365875}
   IsCannonSucking: 0
   _gunTransform: {fileID: 7258545214832006359}
-  _playerMovement: {fileID: 0}
+  _playerMovement: {fileID: 2159321117130327285}
   _playerKnockbackMultiplier: 0.5
   AmmoCapacityText: {fileID: 4392381334619138082}
   ShootForceText: {fileID: 0}
@@ -659,11 +660,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: d7c1ca985f1e955489f24047f760a551, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
