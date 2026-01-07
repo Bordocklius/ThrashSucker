@@ -29,6 +29,9 @@ namespace TrashSucker.Presenters
         private float _jumpVelocity;
         public float MaxSprintTimer;
 
+        [SerializeField]
+        private Transform _knockBackPos;
+
         private Vector2 _movementInput;
         private Vector3 _verticalVelocity;
         private bool _isSprinting = false;
@@ -202,6 +205,12 @@ namespace TrashSucker.Presenters
             //    ApplyEnemyKnockback(other.transform.position, enemy.KnockbackStrength);
             //}
         }
+
+        //public void ApplyGunKnockback(Vector3 position, float strength)
+        //{
+        //    Vector3 dir = new Vector3(_knockBackPos.position.x, 0, _knockBackPos.position.z).normalized;
+        //    ApplyEnemyKnockback(dir, strength);
+        //}
 
         private void ApplyEnemyKnockback(Vector3 position, float strength)
         {

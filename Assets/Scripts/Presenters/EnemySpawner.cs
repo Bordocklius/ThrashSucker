@@ -21,7 +21,9 @@ namespace TrashSucker.Presenters
 
         private void Awake()
         {
-            _maxEnemiesAmount = SpawnCount;
+            if(_maxEnemiesAmount == 0)
+                _maxEnemiesAmount = SpawnCount;
+
             Singleton<GameManager>.Instance.Enemies = new List<GameObject>(_maxEnemiesAmount);
             EnemyBasePresenter[] objs = GameObject.FindObjectsByType<EnemyBasePresenter>(FindObjectsSortMode.None);
             foreach (EnemyBasePresenter obj in objs)
@@ -35,7 +37,7 @@ namespace TrashSucker.Presenters
             if (Transform == null)
                 Transform = this.transform;
 
-            for (int i = 0; i < SpawnCount / 2; i++)
+            for (int i = 0; i < SpawnCount; i++)
             {
                 SpawnEnemy();
             }
@@ -52,7 +54,7 @@ namespace TrashSucker.Presenters
 
         private IEnumerator SpawnEnemiesOverTime()
         {
-            while(_currentEnemyCount < SpawnCount)
+            while(_currentEnemyCount < _maxEnemiesAmount)
             {
                 float delay = GetSpawnDelay();
                 yield return new WaitForSeconds(delay);
@@ -78,6 +80,7 @@ namespace TrashSucker.Presenters
             GameObject itemToSpawn = Instantiate(SpawnItems[Random.Range(0, SpawnItems.Length)], Transform);
             itemToSpawn.transform.position = randomPoint + SpawnOffset;
             Singleton<GameManager>.Instance.Enemies.Add(itemToSpawn);
+            itemToSpawn.GetComponent<EnemyBasePresenter>().NavMeshAgent.enabled = true;
         }
     }
 }

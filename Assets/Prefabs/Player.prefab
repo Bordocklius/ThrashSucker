@@ -389,6 +389,37 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &2420956949133028543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3639563313793464533}
+  m_Layer: 8
+  m_Name: KnockbackPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3639563313793464533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2420956949133028543}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.47000003, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4195724634144282631}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2540871821254340428
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,6 +633,8 @@ MonoBehaviour:
   _collectionPoint: {fileID: 3936485658817365875}
   IsCannonSucking: 0
   _gunTransform: {fileID: 7258545214832006359}
+  _playerMovement: {fileID: 0}
+  _playerKnockbackMultiplier: 0.5
   AmmoCapacityText: {fileID: 4392381334619138082}
   ShootForceText: {fileID: 0}
   ShootForceBar: {fileID: 0}
@@ -1038,6 +1071,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3639563313793464533}
   - {fileID: 7258545214832006359}
   - {fileID: 7074070572521501359}
   m_Father: {fileID: 5397943504560829866}

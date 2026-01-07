@@ -94,6 +94,10 @@ namespace TrashSucker.Presenters
         private bool _isCannonShooting;
         private bool _isShotBuildingUp;
         private Quaternion _originalGunRotation;
+        [SerializeField]
+        private PlayerMovementPresenter _playerMovement;
+        [SerializeField]
+        private float _playerKnockbackMultiplier = 0.5f;
 
         [Space(10)]
         [Header("UI elements")]
@@ -118,6 +122,13 @@ namespace TrashSucker.Presenters
             UpdateCapacityText();
             _originalGunRotation = _gunTransform.localRotation;
             _originalShootForceBarColor = ShootForceBar.color;
+
+            if (_playerMovement == null)
+            {
+                var playerGo = GameObject.FindGameObjectWithTag("Player");
+                if (playerGo != null)
+                    _playerMovement = playerGo.GetComponent<PlayerMovementPresenter>();
+            }
         }
 
         // Update is called once per frame
@@ -334,6 +345,10 @@ namespace TrashSucker.Presenters
                 UpdateAmmoList(false, obj);
                 _audioSource.PlayOneShot(_shootEffect);
                 //AmmoList.Remove(obj);
+
+                // Apply knockback to player (use current ShootForce and multiplier)
+                //float recoil = ShootForce * _playerKnockbackMultiplier;
+                //_playerMovement?.ApplyGunKnockback(_barrelPoint.position, recoil);
             }
 
             UpdateCapacityText();

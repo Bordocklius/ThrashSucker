@@ -102,6 +102,7 @@ namespace TrashSucker.Presenters
             Model.DetectionExitRadius = _detectionExitRadius;
             Model.MinTargetDistance = _minWanderDistance;
             Model.WanderTimeout = _wanderTime;
+            NavMeshAgent.enabled = false;
 
             if(_meshRenderer == null)
                 _meshRenderer = gameObject.GetComponentInChildren<MeshRenderer>();

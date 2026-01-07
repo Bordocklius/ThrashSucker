@@ -1320,6 +1320,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2159321117130327285, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
+      propertyPath: _knockBackPos
+      value: 
+      objectReference: {fileID: 1108419507}
+    - target: {fileID: 2420956949133028543, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2468076420727471814, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1339,6 +1347,14 @@ PrefabInstance:
     - target: {fileID: 2823872501055784961, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2823872501055784961, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639563313793464533, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4319716494424646893, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1404,6 +1420,10 @@ PrefabInstance:
       propertyPath: ShootForceText
       value: 
       objectReference: {fileID: 2055092021}
+    - target: {fileID: 6174315066799661069, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
+      propertyPath: _playerMovement
+      value: 
+      objectReference: {fileID: 2005119633}
     - target: {fileID: 6174315066799661069, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
       propertyPath: _crosshairTransform
       value: 
@@ -33958,6 +33978,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &1108419507 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3639563313793464533, guid: 05a3632586fdb05438490bdc80d470ff, type: 3}
+  m_PrefabInstance: {fileID: 138242336}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1115259066
 GameObject:
   m_ObjectHideFlags: 0
@@ -41753,12 +41778,12 @@ MonoBehaviour:
   - {fileID: 1227894814799509647, guid: b91f6346c1fecba4d8097baba87a9187, type: 3}
   - {fileID: 1227894814799509647, guid: 2fc0285a8932b154cac8bdf1b872fc9b, type: 3}
   - {fileID: 1227894814799509647, guid: 327c774430f5ed2469215ab5b09307e3, type: 3}
-  SpawnCount: 30
+  SpawnCount: 15
   SpawnRadius: 56.9
   Shape: 1
   BoxSize: {x: 123.5, y: 118}
   SpawnOffset: {x: 0, y: 0, z: 0}
-  _maxEnemiesAmount: 0
+  _maxEnemiesAmount: 30
   _maxSpawnDelay: 20
   _minSpawnDelay: 5
 --- !u!1 &2055092020
