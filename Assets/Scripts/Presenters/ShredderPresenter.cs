@@ -18,6 +18,7 @@ namespace TrashSucker.Presenters
     {
         public float StartingShredDuration;
         public LayerMask HitableLayer;
+        public LayerMask DamagableLayer;
         private Coroutine _processingRoutine;
 
         [SerializeField]
@@ -32,6 +33,18 @@ namespace TrashSucker.Presenters
         private ParticleSystem _particleSystem;
         [SerializeField]
         private Color _lerpColor;
+
+        [SerializeField]
+        private AudioSource _audioSource;
+
+        [SerializeField]
+        private AudioClip _damageClip;
+
+        [SerializeField]
+        private float _damageRange;
+
+        [SerializeField]
+        private float _damage;
 
         private Color _startColor;
 
@@ -109,6 +122,7 @@ namespace TrashSucker.Presenters
         protected virtual void Model_OnObjectShredded(object sender, ItemShreddedEventArgs e)
         {
             ChangeObjectsText();
+            DamagePulse(e.Object);
             Destroy(e.Object);
         }
 
@@ -116,6 +130,22 @@ namespace TrashSucker.Presenters
         {
             _objText.text = $"{Model.StoredObjects.Count} objects";
             _objCountText.text = $"{Singleton<GameManager>.Instance.ShreddedObjectsCount} until healing";
+        }
+
+        private void DamagePulse(GameObject obj)
+        {
+            bool didDamage = false;
+            Collider[] objects = Physics.OverlapSphere(this.transform.position, _damageRange, DamagableLayer);
+            foreach(Collider collider in objects)
+            {
+                if(collider.gameObject.TryGetComponent<EnemyBasePresenter>(out EnemyBasePresenter enemy))
+                {
+                    enemy.DamageEnemy(_damage, false);
+                    didDamage = true;
+                }
+            }
+            if (didDamage)
+                _audioSource.PlayOneShot(_damageClip);
         }
 
         private void OnProgressChanged()
@@ -131,6 +161,11 @@ namespace TrashSucker.Presenters
                 AddObject(other.gameObject);
                 other.gameObject.SetActive(false);
             }        
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(this.transform.position, _damageRange);
         }
     }
 }

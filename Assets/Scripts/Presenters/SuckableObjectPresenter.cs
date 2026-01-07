@@ -118,7 +118,7 @@ namespace TrashSucker.Presenters
                 if(collision.collider.TryGetComponent<EnemyBasePresenter>(out EnemyBasePresenter enemy)) {
                     if(enemy != null)
                     {
-                        enemy.DamageEnemy(Model);
+                        enemy.DamageEnemy(Model, true);
                     }
                 }
             }

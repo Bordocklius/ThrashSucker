@@ -137,11 +137,24 @@ namespace TrashSucker.Presenters
             //_transform.position = Vector3.MoveTowards(_transform.position, _playerTransform.position, _movementSpeed * Time.deltaTime);
         }
 
-        public void DamageEnemy(SuckableObject suckableObject)
+
+        public void DamageEnemy(SuckableObject suckableObject, bool playSound)
         {
             _bloodParticles.Play();
-            _audioSource.PlayOneShot(_damageClip);
+            if(playSound)
+                _audioSource.PlayOneShot(_damageClip);
+
             Model.OnEnemyShot(suckableObject);
+            _flashDamage = StartCoroutine(FlashDamage());
+        }
+
+        public void DamageEnemy(float damage, bool playSound)
+        {
+            _bloodParticles.Play();
+            if (playSound)
+                _audioSource.PlayOneShot(_damageClip);
+
+            Model.DealDamage(damage);
             _flashDamage = StartCoroutine(FlashDamage());
         }
 

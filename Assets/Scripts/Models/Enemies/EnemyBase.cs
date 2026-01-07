@@ -73,5 +73,10 @@ namespace TrashSucker.Models.Enemies
 			Health -= damageReceived;
 		}
 
+		public virtual void DealDamage(float damage)
+		{
+			Health -= damage;
+		}
+
     }
 }
